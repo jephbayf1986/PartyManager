@@ -12,7 +12,5 @@ namespace PartyManager.Domain
         public string Location { get; set; }
 
         public DateTime StartTime { get; set; }
-
-        public IEnumerable<PartyGuest> PartyGuests { get; set; }
     }
 }

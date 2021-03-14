@@ -9,7 +9,5 @@
         public int PersonId { get; set; }
 
         public bool IsVIP { get; set; }
-
-        public Person Person { get; set; }
     }
 }
