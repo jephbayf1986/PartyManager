@@ -1,6 +1,14 @@
 ﻿CREATE PROCEDURE [dbo].[spDeletePartyGuest]
-	@param1 int = 0,
-	@param2 int
+	@PartyGuestId INT
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	
+	SET NOCOUNT ON
+
+	DELETE
+	FROM
+		PartyGuest
+	WHERE
+		Id = @PartyGuestId
+
+END

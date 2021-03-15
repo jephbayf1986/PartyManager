@@ -1,6 +1,20 @@
 ﻿CREATE PROCEDURE [dbo].[spUpdatePerson]
-	@param1 int = 0,
-	@param2 int
+	 @PersonId INT
+	,@Email NVARCHAR(254) = NULL
+	,@Phone NVARCHAR(20) = NULL
+	,@FavouriteDrinkId INT = NULL
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+
+	SET NOCOUNT ON
+
+	UPDATE 
+		Person
+	SET
+		 [Email] = ISNULL(@Email, [Email])
+		,[Phone] = ISNULL(@Phone, [Phone])
+		,[FavouriteDrinkId] = ISNULL(@FavouriteDrinkId, [FavouriteDrinkId])
+	WHERE 
+		[Id] = @PersonId
+
+END

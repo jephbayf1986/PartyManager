@@ -2,6 +2,8 @@
 AS
 BEGIN
 
+	SET NOCOUNT ON
+
 	SELECT 
 		 P.[Id]
 		,[Name]

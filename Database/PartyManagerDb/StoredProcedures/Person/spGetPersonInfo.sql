@@ -1,6 +1,25 @@
 ﻿CREATE PROCEDURE [dbo].[spGetPersonInfo]
-	@param1 int = 0,
-	@param2 int
+	@PersonId int
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+
+	SET NOCOUNT ON
+
+	SELECT 
+		 P.[Id]
+		,[FirstName]
+		,[LastName]
+		,[DOB]
+		,[Email]
+		,[Phone]
+		,[FavouriteDrinkId]
+		,D.[Name] AS 'FavouriteDrink'
+	FROM 
+		Person P
+	LEFT JOIN
+		Drink D
+			ON P.[FavouriteDrinkId] = D.[Id]
+	WHERE
+		P.[Id] = @PersonId
+
+END

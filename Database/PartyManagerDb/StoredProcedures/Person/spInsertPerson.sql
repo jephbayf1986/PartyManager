@@ -1,6 +1,28 @@
 ﻿CREATE PROCEDURE [dbo].[spInsertPerson]
-	@param1 int = 0,
-	@param2 int
+	 @FirstName NVARCHAR(50)
+	,@LastName NVARCHAR(50)
+	,@DOB DATETIME
+	,@Email NVARCHAR(254)
+	,@Phone NVARCHAR(20)
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+
+	SET NOCOUNT ON
+
+	INSERT INTO 
+		Person
+			(FirstName
+			,LastName
+			,DOB
+			,Email
+			,Phone)
+	VALUES 
+		(@FirstName
+		,@LastName
+		,@DOB
+		,@Email
+		,@Phone)
+
+	SELECT SCOPE_IDENTITY()
+
+END

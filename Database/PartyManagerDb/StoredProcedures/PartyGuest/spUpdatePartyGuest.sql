@@ -1,6 +1,16 @@
 ﻿CREATE PROCEDURE [dbo].[spUpdatePartyGuest]
-	@param1 int = 0,
-	@param2 int
+	 @PartyGuestId INT
+	,@ChosenDrinkId INT = NULL
+	,@IsVIP BIT = NULL
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	
+	UPDATE
+		PartyGuest
+	SET
+		 [ChosenDrinkId] = ISNULL(@ChosenDrinkId, [ChosenDrinkId])
+		,[IsVIP] = ISNULL(@IsVIP, [IsVIP])
+	WHERE 
+		Id = @PartyGuestId
+
+END

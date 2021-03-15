@@ -1,6 +1,21 @@
 ﻿CREATE PROCEDURE [dbo].[spInsertPartyGuest]
-	@param1 int = 0,
-	@param2 int
+	 @PartyId INT
+	,@PersonId INT
+	,@IsVIP BIT = 0
+	,@ChosenDrinkId INT = NULL
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	
+	SET NOCOUNT ON
+
+	INSERT INTO
+		PartyGuest
+	VALUES 
+		(@PartyId
+		,@PersonId
+		,@ChosenDrinkId
+		,@IsVIP)
+		
+	SELECT SCOPE_IDENTITY()
+
+END

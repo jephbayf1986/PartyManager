@@ -1,18 +1,20 @@
 ﻿CREATE PROCEDURE [dbo].[spUpdateParty]
-	@Id INT,
-	@Name NVARCHAR(100),
-	@Location NVARCHAR(100),
-	@StartTime DATETIME
+	 @PartyId INT
+	,@Name NVARCHAR(100) = NULL
+	,@Location NVARCHAR(100) = NULL
+	,@StartTime DATETIME = NULL
 AS
 BEGIN
+
+	SET NOCOUNT ON
 
 	UPDATE 
 		Party
 	SET
-		[Name] = @Name,
-		[Location] = @Location,
-		[StartTime] = @StartTime
+		 [Name] = ISNULL(@Name, [Name])
+		,[Location] = ISNULL(@Location, [Location])
+		,[StartTime] = ISNULL(@StartTime, [StartTime])
 	WHERE 
-		[Id] = @Id
+		[Id] = @PartyId
 
 END
