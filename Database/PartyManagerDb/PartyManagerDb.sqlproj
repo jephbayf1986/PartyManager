@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>PartyManagerDb</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{937b1817-b7e8-486f-8901-55865f3a7ba7}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>PartyManagerDb</RootNamespace>
+    <AssemblyName>PartyManagerDb</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Tables" />
+    <Folder Include="StoredProcedures" />
+    <Folder Include="StoredProcedures\Party" />
+    <Folder Include="StoredProcedures\Person" />
+    <Folder Include="StoredProcedures\Drink" />
+    <Folder Include="StoredProcedures\PartyGuest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Party.sql" />
+    <Build Include="Tables\Person.sql" />
+    <Build Include="Tables\Drink.sql" />
+    <Build Include="Tables\PartyGuest.sql" />
+    <Build Include="StoredProcedures\Party\spGetParties.sql" />
+    <Build Include="StoredProcedures\Party\spInsertParty.sql" />
+    <Build Include="StoredProcedures\Party\spUpdateParty.sql" />
+    <Build Include="StoredProcedures\Person\spGetPersonInfo.sql" />
+    <Build Include="StoredProcedures\Person\spGetPeople.sql" />
+    <Build Include="StoredProcedures\Person\spInsertPerson.sql" />
+    <Build Include="StoredProcedures\Person\spUpdatePerson.sql" />
+    <Build Include="StoredProcedures\Drink\spGetDrinks.sql" />
+    <Build Include="StoredProcedures\Drink\spInsertDrink.sql" />
+    <Build Include="StoredProcedures\PartyGuest\spGetPartyGuests.sql" />
+    <Build Include="StoredProcedures\PartyGuest\spInsertPartyGuest.sql" />
+    <Build Include="StoredProcedures\PartyGuest\spDeletePartyGuest.sql" />
+    <Build Include="StoredProcedures\PartyGuest\spUpdatePartyGuest.sql" />
+  </ItemGroup>
+</Project>

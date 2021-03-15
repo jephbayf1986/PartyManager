@@ -8,6 +8,8 @@
 
         public int PersonId { get; set; }
 
+        public int? ChosenDrinkId { get; set; }
+
         public bool IsVIP { get; set; }
     }
 }
