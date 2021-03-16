@@ -1,7 +1,0 @@
-﻿CREATE TABLE [dbo].[Party]
-(
-	[Id] INT NOT NULL PRIMARY KEY,
-	[Name] NVARCHAR(100) NOT NULL,
-	[Location] NVARCHAR(100) NOT NULL,
-	[StartTime] DATETIME NULL
-)

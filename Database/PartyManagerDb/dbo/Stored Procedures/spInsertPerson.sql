@@ -4,6 +4,7 @@
 	,@DOB DATETIME
 	,@Email NVARCHAR(254)
 	,@Phone NVARCHAR(20)
+	,@FavouriteDrinkId INT = NULL
 AS
 BEGIN
 
@@ -15,13 +16,15 @@ BEGIN
 			,LastName
 			,DOB
 			,Email
-			,Phone)
+			,Phone
+			,FavouriteDrinkId)
 	VALUES 
 		(@FirstName
 		,@LastName
 		,@DOB
 		,@Email
-		,@Phone)
+		,@Phone
+		,@FavouriteDrinkId)
 
 	SELECT SCOPE_IDENTITY()
 

@@ -9,7 +9,11 @@ BEGIN
 	SET NOCOUNT ON
 
 	INSERT INTO
-		PartyGuest
+		PartyGuest 
+			([PartyId]
+			,[PersonId]
+			,[ChosenDrinkId]
+			,[IsVIP])
 	VALUES 
 		(@PartyId
 		,@PersonId

@@ -11,5 +11,9 @@
         public int? ChosenDrinkId { get; set; }
 
         public bool IsVIP { get; set; }
+
+        public Person Person { get; set; }
+
+        public Drink ChosenDrink { get; set; }
     }
 }

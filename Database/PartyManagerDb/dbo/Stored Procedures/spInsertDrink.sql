@@ -6,7 +6,8 @@ BEGIN
 	SET NOCOUNT ON
 
 	INSERT INTO
-		Drink
+		Drink 
+			([Name])
 	VALUES
 		(@Name)
 

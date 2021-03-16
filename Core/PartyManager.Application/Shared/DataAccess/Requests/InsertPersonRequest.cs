@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace PartyManager.Domain
+namespace PartyManager.Application.Shared.DataAccess.Requests
 {
-    public class Person
+    public class InsertPersonRequest
     {
         public int Id { get; set; }
 
@@ -16,8 +16,6 @@ namespace PartyManager.Domain
 
         public string Phone { get; set; }
 
-        public int? FavouriteDrinkId { get; set; }
-
-        public Drink FavouriteDrink { get; set; }
+        public int FavouriteDrinkId { get; set; }
     }
 }

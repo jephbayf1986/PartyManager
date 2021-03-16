@@ -8,7 +8,10 @@ BEGIN
 	SET NOCOUNT ON
 
 	INSERT INTO 
-		Party
+		Party 
+			([Name]
+			,[Location]
+			,[StartTime])
 	VALUES 
 		(@Name
 		,@Location
