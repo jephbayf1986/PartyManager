@@ -1,7 +1,7 @@
 ﻿using PartyManager.Application.Shared.CQRS;
 using System;
 
-namespace PartyManager.Application.Main.Party.Commands
+namespace PartyManager.Application.Main.Parties.Commands
 {
     public class CreateParty : ICommand<int>
     {

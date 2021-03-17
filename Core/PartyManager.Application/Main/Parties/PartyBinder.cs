@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using PartyManager.Application.Main.Party.Commands;
-using PartyManager.Application.Main.Party.Commands.Validators;
-using PartyManager.Application.Main.Party.Models;
-using PartyManager.Application.Main.Party.Queries;
+using PartyManager.Application.Main.Parties.Commands;
+using PartyManager.Application.Main.Parties.Commands.Validators;
+using PartyManager.Application.Main.Parties.Models;
+using PartyManager.Application.Main.Parties.Queries;
 using PartyManager.Application.Shared.CQRS;
 using PartyManager.Application.Shared.Responding;
 using PartyManager.Application.Shared.Validation;
 using System.Collections.Generic;
 
-namespace PartyManager.Application.Main.Party
+namespace PartyManager.Application.Main.Parties
 {
     public static class PartyBinder
     {
@@ -18,7 +18,7 @@ namespace PartyManager.Application.Main.Party
 
             services.AddScoped<IValidator<CreateParty>, CreatePartyValidator>();
             
-            services.AddScoped<IQueryHandler<GetParties, IEnumerable<PartyDto>>, GetPartiesHandler>();
+            services.AddScoped<IQueryHandler<GetPartySummaries, IEnumerable<PartySummaryDto>>, GetPartySummariesHandler>();
         }
     }
 }

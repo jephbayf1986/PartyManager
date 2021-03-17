@@ -106,21 +106,25 @@ namespace PartyManager.DAL.Infrastructure
 
             command.CommandText = procedureName;
 
+            AddParameters(command, parameters);
+
+            command.CommandType = CommandType.StoredProcedure;
+
+            return command;
+        }
+
+        private static void AddParameters(DbCommand command, Dictionary<string, object> parameters)
+        {
             var hasParameters = parameters?.Any() ?? false;
 
             if (hasParameters)
             {
-                // ToDo: Refactor this
-                foreach(var param in parameters)
+                foreach (var param in parameters)
                 {
                     command.Parameters.Add(param.Key);
                     command.Parameters.Add(param.Value);
                 }
             }
-
-            command.CommandType = CommandType.StoredProcedure;
-
-            return command;
         }
     }
 }

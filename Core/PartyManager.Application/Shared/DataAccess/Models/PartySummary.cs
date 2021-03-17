@@ -7,5 +7,9 @@ namespace PartyManager.Application.Shared.DataAccess.Models
         public Party Party { get; set; }
 
         public int NumberOfGuests { get; set; }
+
+        public int NumberOfVIPs { get; set; }
+
+        public int NumberOfDrinkChoicesOutstanding { get; set; }
     }
 }

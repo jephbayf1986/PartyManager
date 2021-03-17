@@ -9,7 +9,9 @@ BEGIN
 		,[Name]
 		,[Location]
 		,[StartTime]
-		,COUNT(G.Id) NumberOfGuests
+		,COUNT(G.Id) AS NumberOfGuests
+		,SUM(CONVERT(INT, IsVIP)) AS NumberOfVIPs
+		,SUM(CASE WHEN G.[ChosenDrinkId] IS NULL THEN 1 ELSE 0 END) AS NumberOfDrinkChoicesOutstanding
 	FROM 
 		Party P
 	LEFT JOIN 

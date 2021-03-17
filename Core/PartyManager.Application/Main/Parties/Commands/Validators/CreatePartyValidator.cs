@@ -1,7 +1,7 @@
 ﻿using PartyManager.Application.Shared.Validation;
 using PartyManager.Application.Shared.Validation.ValidationTests;
 
-namespace PartyManager.Application.Main.Party.Commands.Validators
+namespace PartyManager.Application.Main.Parties.Commands.Validators
 {
     public class CreatePartyValidator : IValidator<CreateParty>
     {

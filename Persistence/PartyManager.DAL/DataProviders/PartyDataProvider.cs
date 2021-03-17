@@ -2,9 +2,11 @@
 using PartyManager.Application.Shared.DataAccess.Models;
 using PartyManager.Application.Shared.DataAccess.Requests;
 using PartyManager.DAL.DatabaseEntities;
+using PartyManager.DAL.Helpers;
 using PartyManager.DAL.Infrastructure;
+using PartyManager.DAL.Mappers;
+using PartyManager.DAL.Mappers.Extensions;
 using PartyManager.Domain;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,22 +23,44 @@ namespace PartyManager.DAL.DataProviders
 
         public Task<IEnumerable<PartySummary>> GetParties()
         {
-            return db.GetList<PartySummary>(null, null);
+            var param = ParamBuilder.None;
+
+            var mapper = PartySummaryMapper.Mapper;
+
+            return db.GetList(param, mapper);
         }
 
         public Task<Party> GetPartyDetail(int partyId)
         {
-            return db.GetSingle<Party>(null, null);
+            var param = new ParamBuilder()
+                                .WithPartyId(partyId);
+
+            var mapper = PartyMapper.Mapper;
+
+            return db.GetSingle(param, mapper);
         }
 
-        public Task<int> InsertParty(InsertPartyRequest request)
+        public async Task<int> InsertParty(InsertPartyRequest request)
         {
-            throw new NotImplementedException();
+            var param = new ParamBuilder()
+                                .WithParam("Name", request.Name)
+                                .WithParam("Location", request.Location)
+                                .WithParam("StartTime", request.StartTime);
+
+            var newId = await db.Insert(param);
+
+            return newId.ToInt();
         }
 
         public Task UpdateParty(UpdatePartyRequest request)
         {
-            throw new NotImplementedException();
+            var param = new ParamBuilder()
+                                .WithPartyId(request.Id)
+                                .WithParam("Name", request.Name)
+                                .WithParam("Location", request.Location)
+                                .WithParam("StartTime", request.StartTime);
+
+            return db.Update(param);
         }
     }
 }

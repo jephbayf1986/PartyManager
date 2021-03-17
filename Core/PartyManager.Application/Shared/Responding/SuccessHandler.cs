@@ -5,7 +5,7 @@
         internal static Response ReturnSuccess(string message = "Request completed successfully")
             => Response.Succeed(StatusCode.Ok, message);
 
-        internal static Response ReturnInsertSuccess<T>(T id, string entityName)
+        internal static Response<T> ReturnInsertSuccess<T>(T id, string entityName)
         {
             var message = $"New {entityName} has been successfully created with Identity {id}";
 

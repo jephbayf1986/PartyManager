@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using PartyManager.Application.Main.Party;
+using PartyManager.Application.Main.Parties;
 
 namespace PartyManager.Application.Shared.CQRS
 {
