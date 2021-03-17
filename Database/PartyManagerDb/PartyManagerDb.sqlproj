@@ -145,5 +145,8 @@
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Seeds\SeedParty.sql" />
+    <None Include="Seeds\SeedDrink.sql" />
+    <None Include="Seeds\SeedPerson.sql" />
+    <None Include="Seeds\SeedPartyGuest.sql" />
   </ItemGroup>
 </Project>

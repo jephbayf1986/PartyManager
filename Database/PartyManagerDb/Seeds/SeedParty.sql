@@ -15,17 +15,16 @@ VALUES (1, 'End of Lockdown Big Bash', 'Everywhere', '2034-08-02 08:00'),
 SET IDENTITY_INSERT Party ON;
 GO
 
-INSERT INTO Party 
-          ([Id]
-          ,[Name]
-          ,[Location]
-          ,[StartTime])
-SELECT [Id]
-      ,[Name]
-      ,[Location]
-      ,[StartTime]
-FROM #Party
-WHERE [Id] NOT IN (SELECT [Id] From Party)
+MERGE Party AS target  
+USING #PARTY AS source 
+    ON (target.[Id] = source.[Id])  
+WHEN MATCHED THEN
+    UPDATE SET [Name] = source.[Name]  
+              ,[Location] = source.[Location] 
+              ,[StartTime] = source.[StartTime] 
+WHEN NOT MATCHED THEN  
+    INSERT ([Id], [Name], [Location], [StartTime])
+    VALUES (source.[Id], source.[Name], source.[Location], source.[StartTime]);  
 
 SET IDENTITY_INSERT Party OFF;
 GO

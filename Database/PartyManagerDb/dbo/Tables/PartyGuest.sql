@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[PartyGuest] (
-    [Id]            INT NOT NULL,
+    [Id]            INT IDENTITY NOT NULL,
     [PartyId]       INT NOT NULL,
     [PersonId]      INT NOT NULL,
     [ChosenDrinkId] INT NULL,
