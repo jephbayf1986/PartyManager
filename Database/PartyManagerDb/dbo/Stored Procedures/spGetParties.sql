@@ -10,7 +10,7 @@ BEGIN
 		,[Location]
 		,[StartTime]
 		,COUNT(G.Id) AS NumberOfGuests
-		,SUM(CONVERT(INT, IsVIP)) AS NumberOfVIPs
+		,SUM(CONVERT(INT, ISNULL(IsVIP,0))) AS NumberOfVIPs
 		,SUM(CASE WHEN G.[ChosenDrinkId] IS NULL THEN 1 ELSE 0 END) AS NumberOfDrinkChoicesOutstanding
 	FROM 
 		Party P

@@ -18,7 +18,7 @@ namespace PartyManager.Application.Main.Parties.Queries
             _guestProvider = guestProvider;
         }
 
-        public async Task<PartyDto> Handle(GetParty command, CancellationToken token = default)
+        public async Task<PartyDto> Handle(GetParty command)
         {
             var party = await _partyProvider.GetPartyDetail(command.Id);
 

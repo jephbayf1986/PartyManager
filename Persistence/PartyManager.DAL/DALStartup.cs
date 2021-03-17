@@ -12,6 +12,7 @@ namespace PartyManager.DAL
             services.AddTransient<IDbCore, DbCore>();
 
             services.AddTransient<IPartyDataProvider, PartyDataProvider>();
+            services.AddTransient<IPartyGuestDataProvider, PartyGuestDataProvider>();
         }
     }
 }

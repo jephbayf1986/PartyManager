@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,17 +10,11 @@ namespace PartyManager.DAL.Infrastructure
 {
     public class DbCore : IDbCore
     {
-        private const string DataProvider = "System.Data.SqlClient";
-
         private readonly string ConnectionString;
 
-        private readonly DbProviderFactory _dbProvider;
-
-        public DbCore()
+        public DbCore(IConfiguration configuration)
         {
-            _dbProvider = DbProviderFactories.GetFactory(DataProvider);
-
-            ConnectionString = "";
+            ConnectionString = configuration["ConnectionStrings:DefaultConnection"];
         }
 
         public async Task<IEnumerable<T>> ReadList<T>(string procedureName, Dictionary<string, object> parameters, Func<IDataReader, T> mapper, int? commandTimeout = null)
@@ -84,18 +79,18 @@ namespace PartyManager.DAL.Infrastructure
             }
         }
 
-        private DbConnection GetConnection()
+        private SqlConnection GetConnection()
         {
-            var connection = _dbProvider.CreateConnection();
+            var connection = new SqlConnection(ConnectionString);
 
             connection.ConnectionString = ConnectionString;
 
             return connection;
         }
 
-        private DbCommand StoredProcedure(DbConnection connection, string procedureName, Dictionary<string, object> parameters, int? commandTimeout = null)
+        private SqlCommand StoredProcedure(SqlConnection connection, string procedureName, Dictionary<string, object> parameters, int? commandTimeout = null)
         {
-            var command = _dbProvider.CreateCommand();
+            var command = new SqlCommand(procedureName, connection);
 
             command.Connection = connection;
 
@@ -113,7 +108,7 @@ namespace PartyManager.DAL.Infrastructure
             return command;
         }
 
-        private static void AddParameters(DbCommand command, Dictionary<string, object> parameters)
+        private static void AddParameters(SqlCommand command, Dictionary<string, object> parameters)
         {
             var hasParameters = parameters?.Any() ?? false;
 
@@ -121,8 +116,7 @@ namespace PartyManager.DAL.Infrastructure
             {
                 foreach (var param in parameters)
                 {
-                    command.Parameters.Add(param.Key);
-                    command.Parameters.Add(param.Value);
+                    command.Parameters.AddWithValue(param.Key, param.Value);
                 }
             }
         }

@@ -25,8 +25,8 @@ namespace PartyManager.Application.Shared.CQRS
 
             foreach (var component in components)
             {
-                services.AddScoped(component.GetInterfaces()
-                                          .First(i => i.IsGenericType && i.GetGenericTypeDefinition() == componentInterface), component);
+                services.AddTransient(component.GetInterfaces()
+                                            .First(i => i.IsGenericType && i.GetGenericTypeDefinition() == componentInterface), component);
             }
         }
     }

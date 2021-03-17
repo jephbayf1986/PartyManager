@@ -1,11 +1,10 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace PartyManager.Application.Shared.CQRS
 {
     public interface IQueryHandler<in TRequest, TReturn>
         where TRequest : IQuery<TReturn>
     {
-        Task<TReturn> Handle(TRequest command, CancellationToken token = default);
+        Task<TReturn> Handle(TRequest command);
     }
 }

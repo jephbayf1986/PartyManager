@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PartyManager.Application;
+using PartyManager.Application.Main;
 using PartyManager.Application.Shared.CQRS;
 using PartyManager.DAL;
 using PartyManager.WebUI.Data;
@@ -22,10 +24,11 @@ namespace PartyManager.WebUI
         {
             services.BindCQRSPipeline();
             services.RegisterDataProviders();
+            services.AddSingleton<IApplicationLayer, ApplicationLayer>();
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<PartyService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -4,7 +4,6 @@ using PartyManager.Application.Shared.CQRS;
 using PartyManager.Application.Shared.DataAccess.Interfaces;
 using PartyManager.Application.Shared.Mapping;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace PartyManager.Application.Main.Parties.Queries
@@ -18,7 +17,7 @@ namespace PartyManager.Application.Main.Parties.Queries
             _dataProvider = dataProvider;
         }
 
-        public async Task<IEnumerable<PartySummaryDto>> Handle(GetPartySummaries command, CancellationToken token = default)
+        public async Task<IEnumerable<PartySummaryDto>> Handle(GetPartySummaries command)
         {
             var summaries = await _dataProvider.GetParties();
 
