@@ -30,10 +30,10 @@ namespace PartyManager.DAL.DataProviders
             return db.GetList(param, mapper);
         }
 
-        public Task<Party> GetPartyDetail(int partyId)
+        public Task<Party> GetPartyDetail(int id)
         {
             var param = new ParamBuilder()
-                                .WithPartyId(partyId);
+                                .WithPartyId(id);
 
             var mapper = PartyMapper.Mapper;
 

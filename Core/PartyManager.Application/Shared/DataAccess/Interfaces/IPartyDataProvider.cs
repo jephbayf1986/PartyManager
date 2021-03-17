@@ -10,7 +10,7 @@ namespace PartyManager.Application.Shared.DataAccess.Interfaces
     {
         Task<IEnumerable<PartySummary>> GetParties();
         
-        Task<Party> GetPartyDetail(int partyId);
+        Task<Party> GetPartyDetail(int id);
 
         Task<int> InsertParty(InsertPartyRequest request);
 

@@ -9,7 +9,7 @@ namespace PartyManager.Application.Shared.DataAccess.Interfaces
     {
         Task<IEnumerable<Person>> GetPeople();
 
-        Task<Person> GetPersonInfo();
+        Task<Person> GetPersonInfo(int id);
 
         Task<int> InsertPerson(InsertPersonRequest request);
 

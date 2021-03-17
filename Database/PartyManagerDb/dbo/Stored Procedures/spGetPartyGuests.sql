@@ -6,15 +6,18 @@ BEGIN
 	SET NOCOUNT ON
 
 	SELECT
-		 P.[Id] AS PartyId
+		 G.[Id]
+		,P.[Id] AS PartyId
 		,P.[Name] AS PartyName
 		,P.[Location] AS PartyLocation
 		,[StartTime]
-		,N.[FirstName] AS GuestLFirstName
+		,N.[Id] AS PersonId
+		,N.[FirstName] AS GuestFirstName
 		,N.[LastName] AS GuestLastName
 		,N.[DOB] AS GuestDOB
 		,N.[Email] AS GuestEmail
 		,N.[Phone] AS GuestPhone
+		,N.[FavouriteDrinkId] AS GuestFavouriteDrinkId
 		,G.[IsVIP]
 		,G.[ChosenDrinkId]
 		,D.[Name] AS ChosenDrink

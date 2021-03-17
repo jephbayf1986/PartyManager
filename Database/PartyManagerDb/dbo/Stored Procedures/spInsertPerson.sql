@@ -2,8 +2,8 @@
 	 @FirstName NVARCHAR(50)
 	,@LastName NVARCHAR(50)
 	,@DOB DATETIME
-	,@Email NVARCHAR(254)
-	,@Phone NVARCHAR(20)
+	,@Email NVARCHAR(254) = NULL
+	,@Phone NVARCHAR(20) = NULL
 	,@FavouriteDrinkId INT = NULL
 AS
 BEGIN

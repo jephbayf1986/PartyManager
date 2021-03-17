@@ -12,6 +12,8 @@
 
         public bool IsVIP { get; set; }
 
+        public Party Party { get; set; }
+
         public Person Person { get; set; }
 
         public Drink ChosenDrink { get; set; }

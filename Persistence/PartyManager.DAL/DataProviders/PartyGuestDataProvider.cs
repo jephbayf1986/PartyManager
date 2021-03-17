@@ -1,12 +1,12 @@
 ﻿using PartyManager.Application.Shared.DataAccess.Interfaces;
 using PartyManager.Application.Shared.DataAccess.Requests;
 using PartyManager.DAL.DatabaseEntities;
+using PartyManager.DAL.Helpers;
 using PartyManager.DAL.Infrastructure;
+using PartyManager.DAL.Mappers;
+using PartyManager.DAL.Mappers.Extensions;
 using PartyManager.Domain;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PartyManager.DAL.DataProviders
@@ -22,22 +22,43 @@ namespace PartyManager.DAL.DataProviders
 
         public Task<IEnumerable<PartyGuest>> GetPartyGuests(int partyId)
         {
-            throw new NotImplementedException();
+            var param = new ParamBuilder()
+                                .WithPartyId(partyId);
+
+            var mapper = PartyGuestMapper.Mapper;
+
+            return db.GetList(param, mapper);
         }
 
-        public Task<int> InsertPartyGuest(InsertPartyGuestRequest request)
+        public async Task<int> InsertPartyGuest(InsertPartyGuestRequest request)
         {
-            throw new NotImplementedException();
+            var param = new ParamBuilder()
+                                .WithPartyId(request.PartyId)
+                                .WithPersonId(request.PersonId)
+                                .WithParam("ChosenDrinkId", request.ChosenDrinkId)
+                                .WithParam("IsVIP", request.IsVIP);
+
+            var newId = await db.Insert(param);
+
+            return newId.ToInt();
         }
 
         public Task UpdatePartyGuest(UpdatePartyGuestRequest request)
         {
-            throw new NotImplementedException();
+            var param = new ParamBuilder()
+                                .WithPartyGuestId(request.Id)
+                                .WithParam("ChosenDrinkId", request.ChosenDrinkId)
+                                .WithParam("IsVIP", request.IsVIP);
+
+            return db.Update(param);
         }
 
         public Task DeletePartyGuest(int id)
         {
-            throw new NotImplementedException();
+            var param = new ParamBuilder()
+                                .WithPartyGuestId(id);
+
+            return db.Delete(param);
         }
     }
 }
