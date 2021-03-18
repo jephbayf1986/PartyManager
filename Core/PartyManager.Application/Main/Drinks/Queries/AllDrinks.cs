@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PartyManager.Application.Main.Drinks.Queries
 {
-    public class GetDrinks : IQuery<IEnumerable<DrinkDto>>
+    public class AllDrinks : IQuery<IEnumerable<DrinkDto>>
     {
     }
 }

@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace PartyManager.Application.Main.Parties.Queries
 {
-    public class GetPartyHandler : PartyBase, IQueryHandler<GetParty, PartyDto>
+    public class ParyDetailHandler : PartyBase, IQueryHandler<PartyDetail, PartyDto>
     {
         private readonly IPartyDataProvider _partyProvider;
         private readonly IPartyGuestDataProvider _guestProvider;
 
-        public GetPartyHandler(IPartyDataProvider partyProvider, IPartyGuestDataProvider guestProvider)
+        public ParyDetailHandler(IPartyDataProvider partyProvider, IPartyGuestDataProvider guestProvider)
         {
             _partyProvider = partyProvider;
             _guestProvider = guestProvider;
         }
 
-        public async Task<PartyDto> Handle(GetParty command)
+        public async Task<PartyDto> Handle(PartyDetail command)
         {
             var party = await _partyProvider.GetPartyDetail(command.Id);
 

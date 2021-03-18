@@ -8,6 +8,6 @@
 
         public string Phone { get; set; }
 
-        public int FavouriteDrinkId { get; set; }
+        public int? FavouriteDrinkId { get; set; }
     }
 }

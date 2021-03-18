@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace PartyManager.Application.Shared.Validation.ValidationTests
+﻿namespace PartyManager.Application.Shared.Validation.ValidationTests
 {
     internal class TextMinLength : ValidationTest<string>
     {
-        public override string RuleDescription => throw new NotImplementedException();
+        public override string FriendlyDescription => $"The value provided for {FieldName} must be no less than {MinLength} characters";
 
         private readonly int MinLength;
 

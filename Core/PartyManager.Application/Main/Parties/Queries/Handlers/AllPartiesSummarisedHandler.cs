@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace PartyManager.Application.Main.Parties.Queries
 {
-    public class GetPartySummariesHandler : IQueryHandler<GetPartySummaries, IEnumerable<PartySummaryDto>>
+    public class AllPartiesSummarisedHandler : IQueryHandler<AllPartiesSummarised, IEnumerable<PartySummaryDto>>
     {
         private readonly IPartyDataProvider _dataProvider;
         
-        public GetPartySummariesHandler(IPartyDataProvider dataProvider)
+        public AllPartiesSummarisedHandler(IPartyDataProvider dataProvider)
         {
             _dataProvider = dataProvider;
         }
 
-        public async Task<IEnumerable<PartySummaryDto>> Handle(GetPartySummaries command)
+        public async Task<IEnumerable<PartySummaryDto>> Handle(AllPartiesSummarised command)
         {
             var summaries = await _dataProvider.GetParties();
 

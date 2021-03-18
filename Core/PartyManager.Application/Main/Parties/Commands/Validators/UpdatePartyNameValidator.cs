@@ -8,7 +8,7 @@ namespace PartyManager.Application.Main.Parties.Commands.Validators
         public ValidationResult Validate(UpdatePartyName command)
         {
             return new ValidationResultBuilder()
-                            .WithValidationTest(new NotNull("Update Party Request", command, false))
+                            .WithValidationTest(new NotNull("Update Party Name Request", command, false))
 
                             .WithValidationTest(new NotZero("Party Id", command.Id))
 

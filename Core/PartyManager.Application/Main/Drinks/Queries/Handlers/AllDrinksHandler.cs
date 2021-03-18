@@ -6,18 +6,18 @@ using PartyManager.Application.Shared.Mapping;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PartyManager.Application.Main.Drinks.Queries
+namespace PartyManager.Application.Main.Drinks.Queries.Handlers
 {
-    public class GetDrinksHandler : IQueryHandler<GetDrinks, IEnumerable<DrinkDto>>
+    public class AllDrinksHandler : IQueryHandler<AllDrinks, IEnumerable<DrinkDto>>
     {
         private readonly IDrinkDataProvider _dataProvider;
 
-        public GetDrinksHandler(IDrinkDataProvider dataProvider)
+        public AllDrinksHandler(IDrinkDataProvider dataProvider)
         {
             _dataProvider = dataProvider;
         }
 
-        public async Task<IEnumerable<DrinkDto>> Handle(GetDrinks command)
+        public async Task<IEnumerable<DrinkDto>> Handle(AllDrinks command)
         {
             var drinks = await _dataProvider.GetDrinks();
 

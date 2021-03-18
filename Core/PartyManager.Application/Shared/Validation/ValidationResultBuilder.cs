@@ -16,7 +16,7 @@ namespace PartyManager.Application.Shared.Validation
         {
             if (!validationTest.TestPass)
             {
-                result.AddFailure(validationTest.FieldName, validationTest.RuleDescription);
+                result.AddFailure(validationTest.FieldName, validationTest.FriendlyDescription);
 
                 if (!validationTest.ContinueOnError)
                 {

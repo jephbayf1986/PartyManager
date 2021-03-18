@@ -2,7 +2,7 @@
 {
     internal class NotNull : ValidationTest<object>
     {
-        public override string RuleDescription => $"No value was be provided for {FieldName}";
+        public override string FriendlyDescription => $"No value was be provided for {FieldName}";
 
         public NotNull(string fieldName, object value, bool continueOnError = true)
             : base(fieldName, value, continueOnError)

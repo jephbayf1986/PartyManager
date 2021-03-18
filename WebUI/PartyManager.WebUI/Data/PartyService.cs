@@ -21,7 +21,7 @@ namespace PartyManager.WebUI.Data
 
         public async Task<IEnumerable<PartySummaryViewModel>> GetPartySummaries()
         {
-            var summaries = await _appLayer.Acquire(new GetPartySummaries());
+            var summaries = await _appLayer.Get(new AllPartiesSummarised());
 
             return summaries.Map()
                             .ToEnumerable<PartySummaryViewModel>()

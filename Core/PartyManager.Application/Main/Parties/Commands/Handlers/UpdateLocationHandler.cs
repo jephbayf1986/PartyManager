@@ -4,23 +4,23 @@ using PartyManager.Application.Shared.DataAccess.Requests;
 using PartyManager.Application.Shared.Responding;
 using System.Threading.Tasks;
 
-namespace PartyManager.Application.Main.Parties.Commands
+namespace PartyManager.Application.Main.Parties.Commands.Handlers
 {
-    public class UpdatePartyStartTimeHandler : PartyBase, ICommandHandler<UpdatePartyStartTime, Response>
+    public class UpdateLocationHandler : PartyBase, ICommandHandler<UpdateLocation, Response>
     {
         private readonly IPartyDataProvider _dataProvider;
-        
-        public UpdatePartyStartTimeHandler(IPartyDataProvider dataProvider)
+
+        public UpdateLocationHandler(IPartyDataProvider dataProvider)
         {
             _dataProvider = dataProvider;
         }
 
-        public async Task<Response> Handle(UpdatePartyStartTime command)
+        public async Task<Response> Handle(UpdateLocation command)
         {
             var request = new UpdatePartyRequest()
             {
                 Id = command.Id,
-                StartTime = command.StartTime
+                Location = command.Location
             };
 
             await _dataProvider.UpdateParty(request);

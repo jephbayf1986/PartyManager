@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace PartyManager.Application.Shared.Validation.ValidationTests
+﻿namespace PartyManager.Application.Shared.Validation.ValidationTests
 {
     internal class TextMaxLength : ValidationTest<string>
     {
-        public override string RuleDescription => throw new NotImplementedException();
+        public override string FriendlyDescription => $"The value provided for {FieldName} must be no longer than {MaxLength} characters";
 
         private readonly int MaxLength;
 

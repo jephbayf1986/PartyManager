@@ -2,7 +2,7 @@
 {
     internal abstract class ValidationTest<T>
     {
-        public abstract string RuleDescription { get; }
+        public abstract string FriendlyDescription { get; }
 
         public bool TestPass { get { return GetTestResult(); } }
 

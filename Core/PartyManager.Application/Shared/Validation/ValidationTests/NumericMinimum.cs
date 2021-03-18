@@ -2,7 +2,7 @@
 {
     internal class NumericMinimum : ValidationTest<decimal>
     {
-        public override string RuleDescription => $"The Value provided for {FieldName} can be no more than {MinValue}";
+        public override string FriendlyDescription => $"The Value provided for {FieldName} can be no less than {MinValue}";
 
         private decimal MinValue;
 

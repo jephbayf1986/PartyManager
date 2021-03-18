@@ -3,12 +3,12 @@ using PartyManager.Application.Shared.Validation.ValidationTests;
 
 namespace PartyManager.Application.Main.Parties.Commands.Validators
 {
-    public class UpdatePartyStartTimeValidator : IValidator<UpdatePartyStartTime>
+    public class UpdatePartyStartTimeValidator : IValidator<UpdateStartTime>
     {
-        public ValidationResult Validate(UpdatePartyStartTime command)
+        public ValidationResult Validate(UpdateStartTime command)
         {
             return new ValidationResultBuilder()
-                            .WithValidationTest(new NotNull("Update Party Request", command, false))
+                            .WithValidationTest(new NotNull("Update Start Time Request", command, false))
 
                             .WithValidationTest(new NotZero("Party Id", command.Id))
 

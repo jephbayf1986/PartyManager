@@ -8,6 +8,6 @@ namespace PartyManager.Application
     {
         Task<T> Execute<T>(ICommandBase<T> command);
 
-        Task<T> Acquire<T>(IQuery<T> query);
+        Task<T> Get<T>(IQuery<T> query);
     }
 }

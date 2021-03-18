@@ -20,7 +20,7 @@ namespace PartyManager.Application.Main
             return dispatcher.DispatchAsync(_serviceProvider);
         }
 
-        public Task<T> Acquire<T>(IQuery<T> query)
+        public Task<T> Get<T>(IQuery<T> query)
         { 
             var dispatcher = GetDispatcherBase<T>(query, typeof(QueryDispatcher<,>));
 

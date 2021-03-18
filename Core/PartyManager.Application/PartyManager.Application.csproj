@@ -12,9 +12,4 @@
     <ProjectReference Include="..\PartyManager.Domain\PartyManager.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Main\PartyGuests\" />
-    <Folder Include="Main\People\" />
-  </ItemGroup>
-
 </Project>

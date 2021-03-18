@@ -3,7 +3,7 @@ using PartyManager.Application.Shared.DataAccess.Interfaces;
 using PartyManager.Application.Shared.Responding;
 using System.Threading.Tasks;
 
-namespace PartyManager.Application.Main.Drinks.Commands
+namespace PartyManager.Application.Main.Drinks.Commands.Handlers
 {
     public class CreateDrinkHandler : DrinkBase, ICommandHandler<CreateDrink, Response<int>>
     {

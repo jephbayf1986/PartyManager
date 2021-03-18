@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PartyManager.Application.Main.Parties.Queries
 {
-    public class GetPartySummaries : IQuery<IEnumerable<PartySummaryDto>>
+    public class AllPartiesSummarised : IQuery<IEnumerable<PartySummaryDto>>
     {
     }
 }

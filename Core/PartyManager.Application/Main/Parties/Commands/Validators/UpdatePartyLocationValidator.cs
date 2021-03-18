@@ -3,12 +3,12 @@ using PartyManager.Application.Shared.Validation.ValidationTests;
 
 namespace PartyManager.Application.Main.Parties.Commands.Validators
 {
-    public class UpdatePartyLocationValidator : IValidator<UpdatePartyLocation>
+    public class UpdatePartyLocationValidator : IValidator<UpdateLocation>
     {
-        public ValidationResult Validate(UpdatePartyLocation command)
+        public ValidationResult Validate(UpdateLocation command)
         {
             return new ValidationResultBuilder()
-                            .WithValidationTest(new NotNull("Update Party Request", command, false))
+                            .WithValidationTest(new NotNull("Update Location Request", command, false))
 
                             .WithValidationTest(new NotZero("Party Id", command.Id))
 

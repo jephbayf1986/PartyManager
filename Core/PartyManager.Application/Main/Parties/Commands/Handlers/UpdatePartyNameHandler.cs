@@ -4,7 +4,7 @@ using PartyManager.Application.Shared.DataAccess.Requests;
 using PartyManager.Application.Shared.Responding;
 using System.Threading.Tasks;
 
-namespace PartyManager.Application.Main.Parties.Commands
+namespace PartyManager.Application.Main.Parties.Commands.Handlers
 {
     public class UpdatePartyNameHandler : PartyBase, ICommandHandler<UpdatePartyName, Response>
     {

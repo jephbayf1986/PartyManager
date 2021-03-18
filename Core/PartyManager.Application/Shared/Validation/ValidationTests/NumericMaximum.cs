@@ -2,7 +2,7 @@
 {
     internal class NumericMaximum : ValidationTest<decimal>
     {
-        public override string RuleDescription => $"The Value provided for {FieldName} can be no more than {MaxValue}";
+        public override string FriendlyDescription => $"The Value provided for {FieldName} can be no more than {MaxValue}";
 
         private decimal MaxValue;
 

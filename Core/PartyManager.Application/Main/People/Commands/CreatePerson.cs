@@ -1,8 +1,9 @@
-﻿using System;
+﻿using PartyManager.Application.Shared.CQRS;
+using System;
 
-namespace PartyManager.Application.Shared.DataAccess.Requests
+namespace PartyManager.Application.Main.People.Commands
 {
-    public class InsertPersonRequest
+    public class CreatePerson : ICommand<int>
     {
         public string FirstName { get; set; }
 
