@@ -1,5 +1,5 @@
-﻿using PartyManager.Application.Main.Parties.Mappers;
-using PartyManager.Application.Main.Parties.Models;
+﻿using PartyManager.Application.Main.Parties.Queries.Mappers;
+using PartyManager.Application.Main.Parties.Queries.Models;
 using PartyManager.Application.Shared.CQRS;
 using PartyManager.Application.Shared.DataAccess.Interfaces;
 using PartyManager.Application.Shared.Mapping;

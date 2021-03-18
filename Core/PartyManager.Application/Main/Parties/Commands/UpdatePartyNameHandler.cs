@@ -6,23 +6,21 @@ using System.Threading.Tasks;
 
 namespace PartyManager.Application.Main.Parties.Commands
 {
-    public class UpdatePartyHandler : PartyBase, ICommandHandler<UpdateParty, Response>
+    public class UpdatePartyNameHandler : PartyBase, ICommandHandler<UpdatePartyName, Response>
     {
         private readonly IPartyDataProvider _dataProvider;
 
-        public UpdatePartyHandler(IPartyDataProvider dataProvider)
+        public UpdatePartyNameHandler(IPartyDataProvider dataProvider)
         {
             _dataProvider = dataProvider;
         }
 
-        public async Task<Response> Handle(UpdateParty command)
+        public async Task<Response> Handle(UpdatePartyName command)
         {
             var request = new UpdatePartyRequest()
             {
                 Id = command.Id,
-                Name = command.Name,
-                Location = command.Location,
-                StartTime = command.StartTime
+                Name = command.Name
             };
 
             await _dataProvider.UpdateParty(request);

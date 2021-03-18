@@ -10,11 +10,6 @@
         }
 
         protected override bool GetTestResult()
-        {
-            if (ValueProvided == null)
-                return false;
-
-            return true;
-        }
+            => ValueProvided != null;
     }
 }

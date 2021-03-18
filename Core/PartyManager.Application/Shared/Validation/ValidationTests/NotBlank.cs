@@ -10,13 +10,6 @@
         }
 
         protected override bool GetTestResult()
-        {
-            if (string.IsNullOrWhiteSpace(ValueProvided))
-            {
-                return false;
-            }
-
-            return true;
-        }
+            => !string.IsNullOrWhiteSpace(ValueProvided);
     }
 }

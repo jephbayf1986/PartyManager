@@ -1,8 +1,8 @@
-﻿using PartyManager.Application.Main.Parties.Models;
+﻿using PartyManager.Application.Main.Parties.Queries.Models;
 using PartyManager.Application.Shared.DataAccess.Models;
 using PartyManager.Application.Shared.Mapping;
 
-namespace PartyManager.Application.Main.Parties.Mappers
+namespace PartyManager.Application.Main.Parties.Queries.Mappers
 {
     internal class PartySummaryMapper : IMapper<PartySummary, PartySummaryDto>
     {

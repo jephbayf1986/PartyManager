@@ -7,13 +7,17 @@ namespace PartyManager.Application.Main.Parties.Commands.Validators
     {
         public ValidationResult Validate(CreateParty command)
         {
-            var resultBuilder = new ValidationResultBuilder()
+            return new ValidationResultBuilder()
 
                 .WithValidationTest(new NotNull("Create Party Request", command, false))
 
-                .WithValidationTest(new NotBlank("Party Name", command.Name));
+                .WithValidationTest(new TextMinLength("Party Name", command.Name, 5))
+                .WithValidationTest(new TextMaxLength("Party Name", command.Name, 100))
 
-            return resultBuilder.Build();
+                .WithValidationTest(new NotBlank("Location", command.Location))
+                .WithValidationTest(new TextMaxLength("Location", command.Location, 100))
+
+                .Build();
         }
     }
 }

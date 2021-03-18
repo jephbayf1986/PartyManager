@@ -1,4 +1,4 @@
-﻿using PartyManager.Application.Main.Parties.Models;
+﻿using PartyManager.Application.Main.Parties.Queries.Models;
 using PartyManager.Application.Shared.CQRS;
 using System.Collections.Generic;
 

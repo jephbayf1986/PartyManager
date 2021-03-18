@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PartyManager.Application.Main.Parties.Models
+namespace PartyManager.Application.Main.Parties.Queries.Models
 {
     public class PartyDto
     {

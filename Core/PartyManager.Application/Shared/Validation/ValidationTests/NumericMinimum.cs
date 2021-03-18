@@ -1,23 +1,18 @@
 ﻿namespace PartyManager.Application.Shared.Validation.ValidationTests
 {
-    internal class NumericMaximum : ValidationTest<decimal>
+    internal class NumericMinimum : ValidationTest<decimal>
     {
-        public override string RuleDescription => $"The Value provided for {FieldName} can be no more than {MaxValue}";
+        public override string RuleDescription => $"The Value provided for {FieldName} can be no more than {MinValue}";
 
-        private decimal MaxValue;
+        private decimal MinValue;
 
-        public NumericMaximum(string fieldName, decimal value, decimal maxValue, bool continueOnError = true)
+        public NumericMinimum(string fieldName, decimal value, decimal minValue, bool continueOnError = true)
             : base(fieldName, value, continueOnError)
         {
-            MaxValue = maxValue;
+            MinValue = minValue;
         }
 
         protected override bool GetTestResult()
-        {
-            if (ValueProvided > MaxValue)
-                return false;
-
-            return true;
-        }
+            => ValueProvided >= MinValue;
     }
 }

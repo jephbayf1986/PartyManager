@@ -1,8 +1,7 @@
-﻿using PartyManager.Application.Main.Parties.Models;
+﻿using PartyManager.Application.Main.Parties.Queries.Models;
 using PartyManager.Application.Shared.CQRS;
 using PartyManager.Application.Shared.DataAccess.Interfaces;
 using PartyManager.Application.Shared.Exceptions;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace PartyManager.Application.Main.Parties.Queries

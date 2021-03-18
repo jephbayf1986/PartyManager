@@ -16,25 +16,18 @@ namespace PartyManager.Application.Shared.CQRS
 
         public override Task<TOut> DispatchAsync(IServiceProvider serviceProvider)
         {
-            try
-            {
-                var handlerType = typeof(IQueryHandler<TQuery, TOut>);
+            var handlerType = typeof(IQueryHandler<TQuery, TOut>);
 
-                var handler1 = serviceProvider.GetService(handlerType);
+            var handlerObject = serviceProvider.GetService(handlerType);
 
-                var handler = handler1 as IQueryHandler<TQuery, TOut>;
-
-                return handler.Handle(_query);
-            }
-            catch (InvalidOperationException ex) 
-                when (ex.Source == "Microsoft.Extensions.DependencyInjection")
+            if (handlerObject == null)
             {
                 throw new MissingHandlerException(typeof(TQuery));
             }
-            catch (Exception ex)
-            {
-                throw;
-            }
+
+            var handler = handlerObject as IQueryHandler<TQuery, TOut>;
+
+            return handler.Handle(_query);
         }
     }
 }
