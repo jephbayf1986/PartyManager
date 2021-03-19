@@ -1,0 +1,60 @@
+﻿@page "/"
+
+@using PartyManager.WebUI.Data
+@using PartyManager.Application.Main.Parties.Queries.Models
+@inject PartySummaryService PartySummaryService
+
+<h1>My Parties</h1>
+
+<p>Let's Get Planning...</p>
+
+@if (parties == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>StartTime</th>
+                <th>Guests</th>
+                <th>VIPs</th>
+                <th>Drink Info Needed</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var party in parties)
+            {
+            <tr>
+                <td>@party.Name</td>
+                <td>@party.Location</td>
+                <td>@party.StartTime</td>
+                <td>@party.NumberOfGuests <span class="oi oi-person" aria-hidden="true"></span></td>
+                <td>
+                    @party.NumberOfVIPs
+                    <span class="oi oi-person" aria-hidden="true"></span>
+                    <span class="oi oi-plus" aria-hidden="true"></span>
+                </td>
+                <td>@party.NumberOfDrinkChoicesOutstanding <span class="oi oi-beaker" aria-hidden="true"></span></td>
+                <td>
+                    <a href="/party/@party.Id">
+                        <span class="oi oi-arrow-circle-right" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<PartySummaryDto> parties;
+
+    protected override async Task OnInitializedAsync()
+    {
+        parties = await PartySummaryService.GetPartySummaries();
+    }
+}

@@ -1,0 +1,91 @@
+﻿@using PartyManager.WebUI.Data
+@using PartyManager.Application.Main.Parties.Commands
+@using PartyManager.Application.Shared.Responding
+@inject PartyAdminService PartyAdminService
+
+<div class="display-edit-container">
+
+    <div class="field-container">
+        <div class="field-label">
+            <h6>
+                Location:
+            </h6>
+        </div>
+        <div class="field-main">
+            @if (!Editing)
+            {
+                <h3>
+                    @Location
+                </h3>
+            }
+            else
+            {
+                <EditForm Model="@command" OnValidSubmit="@Update">
+                    <InputText id="party-location" @bind-Value="command.Location" />
+                    <button type="submit"><span class="oi oi-check" aria-hidden="true"></span></button>
+                    <button @onclick="@CancelEdit"><span class="oi oi-x" aria-hidden="true"></span></button>
+                </EditForm>
+            }
+        </div>
+    </div>
+    <div class="toggler-container">
+        <a href="" @onclick="@ToggleEdit" @onclick:preventDefault>
+            <span class="oi oi-pencil" aria-hidden="true"></span>
+        </a>
+    </div>
+
+</div>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    [Parameter]
+    public string Location { get; set; }
+
+    private bool Editing;
+    private UpdateLocation command { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Editing = false;
+
+        command = new UpdateLocation
+        {
+            Id = Id,
+            Location = Location
+        };
+    }
+
+    private void ToggleEdit()
+    {
+        if (Editing)
+        {
+            CancelEdit();
+        }
+        else
+        {
+            Editing = !Editing;
+        }
+    }
+
+    private void CancelEdit()
+    {
+        Editing = false;
+
+        command.Location = Location;
+    }
+
+    private async Task<Response> Update()
+    {
+        var response = await PartyAdminService.UpdateLocation(command);
+
+        if (response.Success)
+        {
+            Editing = false;
+        }
+
+        return response;
+    }
+}

@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartyManager.WebUI", "WebUI
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{1A998267-ACE4-47C7-8F14-B41194CB3783}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyManager.DAL", "Persistence\PartyManager.DAL\PartyManager.DAL.csproj", "{08B3FEE2-ABB5-4FF8-9F3A-F3012238398B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartyManager.DAL", "Persistence\PartyManager.DAL\PartyManager.DAL.csproj", "{08B3FEE2-ABB5-4FF8-9F3A-F3012238398B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

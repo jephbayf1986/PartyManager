@@ -28,7 +28,15 @@ namespace PartyManager.WebUI
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<PartyService>();
+
+            services.AddSingleton<PartySummaryService>();
+            services.AddSingleton<PartyAdminService>();
+            services.AddSingleton<PeopleService>();
+            services.AddSingleton<PersonAdminService>();
+            services.AddSingleton<DrinksService>();
+
+            services.AddMvc()
+                    .AddRazorRuntimeCompilation();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

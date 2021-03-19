@@ -1,7 +1,9 @@
-﻿using PartyManager.Application.Main.Parties.Queries.Models;
+﻿using PartyManager.Application.Main.Parties.Queries.Mappers;
+using PartyManager.Application.Main.Parties.Queries.Models;
 using PartyManager.Application.Shared.CQRS;
 using PartyManager.Application.Shared.DataAccess.Interfaces;
 using PartyManager.Application.Shared.Exceptions;
+using PartyManager.Application.Shared.Mapping;
 using System.Threading.Tasks;
 
 namespace PartyManager.Application.Main.Parties.Queries
@@ -34,7 +36,9 @@ namespace PartyManager.Application.Main.Parties.Queries
                 Name = party.Name,
                 Location = party.Location,
                 StartTime = party.StartTime,
-                PartyGuests = guests
+                PartyGuests = guests.Map()
+                                    .ToEnumerable<PartyGuestDto>()
+                                    .WithMapper<PartyGuestMapper>()
             };
         }
     }

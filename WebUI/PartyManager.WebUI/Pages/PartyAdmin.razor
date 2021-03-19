@@ -1,0 +1,45 @@
+﻿@page "/party/{Id:int}"
+
+@using PartyManager.WebUI.Data
+@using PartyManager.Application.Main.Parties.Queries.Models
+@inject PartyAdminService PartyAdminService
+
+@if (party == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h1>Party: @party.Name</h1>
+
+    <hr />
+
+    <div class="display-field-container">
+        <div class="display-field">
+            <PartyName Id="@party.Id" Name="@party.Name" />
+        </div>
+        <div class="display-field">
+            <PartyLocation Id="@party.Id" Location="@party.Location" />
+        </div>
+        <div class="display-field">
+            <PartyDate Id="@party.Id" StartTime="@party.StartTime" />
+        </div>
+    </div>
+
+    <hr />
+
+    <PartyGuestList PartyGuests="@party.PartyGuests" />
+}
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private PartyDto party;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        party = await PartyAdminService.GetParty(Id);
+    }
+}

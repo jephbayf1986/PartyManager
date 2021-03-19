@@ -14,6 +14,6 @@ namespace PartyManager.Application.Main.Parties.Queries.Models
 
         public DateTime StartTime { get; set; }
 
-        public IEnumerable<PartyGuest> PartyGuests { get; set; }
+        public IEnumerable<PartyGuestDto> PartyGuests { get; set; }
     }
 }

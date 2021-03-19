@@ -1,0 +1,41 @@
+﻿@page "/drinks"
+
+@using PartyManager.WebUI.Data
+@using PartyManager.Application.Main.Drinks.Queries.Models
+@inject DrinksService DrinksService
+
+<h1>Drinks</h1>
+
+<p>The following Drinks are available:</p>
+
+@if (drinks == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var drink in drinks)
+            {
+                <tr>
+                    <td>@drink.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<DrinkDto> drinks;
+
+    protected override async Task OnInitializedAsync()
+    {
+        drinks = await DrinksService.GetDrinks();
+    }
+}

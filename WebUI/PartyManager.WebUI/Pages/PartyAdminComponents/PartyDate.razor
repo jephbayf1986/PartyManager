@@ -1,0 +1,91 @@
+﻿@using PartyManager.WebUI.Data
+@using PartyManager.Application.Main.Parties.Commands
+@using PartyManager.Application.Shared.Responding
+@inject PartyAdminService PartyAdminService
+
+<div class="display-edit-container">
+
+    <div class="field-container">
+        <div class="field-label">
+            <h6>
+                Start Time:
+            </h6>
+        </div>
+        <div class="field-main">
+            @if (!Editing)
+            {
+                <h3>
+                    @StartTime
+                </h3>
+            }
+            else
+            {
+                <EditForm Model="@command" OnValidSubmit="@Update">
+                    <InputDate id="party-starttime" @bind-Value="command.StartTime" />
+                    <button type="submit"><span class="oi oi-check" aria-hidden="true"></span></button>
+                    <button @onclick="@CancelEdit"><span class="oi oi-x" aria-hidden="true"></span></button>
+                </EditForm>
+            }
+        </div>
+    </div>
+    <div class="toggler-container">
+        <a href="" @onclick="@ToggleEdit" @onclick:preventDefault>
+            <span class="oi oi-pencil" aria-hidden="true"></span>
+        </a>
+    </div>
+
+</div>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    [Parameter]
+    public DateTime StartTime { get; set; }
+    
+    private bool Editing;
+    private UpdateStartTime command { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Editing = false;
+
+        command = new UpdateStartTime
+        {
+            Id = Id,
+            StartTime = StartTime
+        };
+    }
+
+    private void ToggleEdit()
+    {
+        if (Editing)
+        {
+            CancelEdit();
+        }
+        else
+        {
+            Editing = !Editing;
+        }
+    }
+
+    private void CancelEdit()
+    {
+        Editing = false;
+
+        command.StartTime = StartTime;
+    }
+
+    private async Task<Response> Update()
+    {
+        var response = await PartyAdminService.UpdateStartTime(command);
+
+        if (response.Success)
+        {
+            Editing = false;
+        }
+
+        return response;
+    }
+}

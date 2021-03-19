@@ -1,21 +1,41 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+:root {
+    --darkblue: #0e273c;
+    --darkpurple: #392356;
+    --lighttext: #efd7e1;
+    --lightalmond: #ece6e2;
+    --linkpurple: #9054cd;
+    --linkpurple2: #8F61DB;
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-image: linear-gradient(180deg, var(--darkpurple) 0%, var(--darkblue) 70%);
+    color: var(--lighttext);
 }
 
 a, .btn-link {
-    color: #0366d6;
+    color: var(--linkpurple);
+}
+
+    a:hover, .btn-link:hover {
+        color: var(--linkpurple2);
+    }
+
+.table {
+    color: var(--lightalmond)
 }
 
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
-}
-
-.content {
-    padding-top: 1.1rem;
 }
 
 .valid.modified:not([type=checkbox]) {
@@ -47,4 +67,35 @@ a, .btn-link {
         position: absolute;
         right: 0.75rem;
         top: 0.5rem;
+    }
+
+.display-field-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+    .display-field-container .display-field {
+        padding: 1em;
+    }
+
+.display-edit-container {
+    display: flex;
+    flex-direction: row;
+}
+
+    .display-edit-container .field-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: start
+    }
+
+    .display-edit-container .toggler-container {
+        padding: 2em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }

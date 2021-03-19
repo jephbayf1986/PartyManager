@@ -19,7 +19,7 @@ namespace PartyManager.DAL.Mappers.Extensions
 
         public static int? ToNullableInt(this object data)
         {
-            if (data == null)
+            if (data.IsNull())
             {
                 return (int?)null;
             }
@@ -41,7 +41,7 @@ namespace PartyManager.DAL.Mappers.Extensions
 
         public static bool? ToNullableBool(this object data)
         {
-            if (data == null)
+            if (data.IsNull())
             {
                 return (bool?)null;
             }
@@ -63,12 +63,17 @@ namespace PartyManager.DAL.Mappers.Extensions
 
         public static DateTime? ToNullableDateTime(this object data)
         {
-            if (data == null)
+            if (data.IsNull())
             {
                 return (DateTime?)null;
             }
 
             return data.ToDateTime();
+        }
+
+        private static bool IsNull(this object data)
+        {
+            return data == null || string.IsNullOrEmpty(data.ToString());
         }
     }
 }

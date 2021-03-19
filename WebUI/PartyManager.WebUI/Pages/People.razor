@@ -1,0 +1,43 @@
+﻿@page "/people"
+
+@using PartyManager.WebUI.Data
+@using PartyManager.Application.Main.People.Queries.Models
+@inject PeopleService PeopleService
+
+<h1>People</h1>
+
+<p>The following people are registered to be guests</p>
+
+@if (people == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in people)
+            {
+                <tr>
+                    <td>@person.FullName</td>
+                    <td>@person.Age</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<PersonDto> people;
+
+    protected override async Task OnInitializedAsync()
+    {
+        people = await PeopleService.GetPeople();
+    }
+}
