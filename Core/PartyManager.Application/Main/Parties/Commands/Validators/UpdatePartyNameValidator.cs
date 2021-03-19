@@ -12,6 +12,7 @@ namespace PartyManager.Application.Main.Parties.Commands.Validators
 
                             .WithValidationTest(new NotZero("Party Id", command.Id))
 
+                            .WithValidationTest(new NotNull("Party Name", command.Name, false))
                             .WithValidationTest(new TextMinLength("Party Name", command.Name, 5))
                             .WithValidationTest(new TextMaxLength("Party Name", command.Name, 100))
 

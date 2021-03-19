@@ -1,4 +1,5 @@
 ﻿using PartyManager.Application.Shared.Exceptions;
+using PartyManager.Application.Shared.Responding;
 using PartyManager.Application.Shared.Validation;
 using System;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ namespace PartyManager.Application.Shared.CQRS
 {
     internal class CommandDispatcher<TCommand, TOut> : DispatcherBase<TOut>
         where TCommand : ICommandBase<TOut>
+        where TOut : Response, new()
     {
         private TCommand _command;
 
@@ -15,7 +17,7 @@ namespace PartyManager.Application.Shared.CQRS
             _command = command;
         }
 
-        public override Task<TOut> DispatchAsync(IServiceProvider serviceProvider)
+        public override async Task<TOut> DispatchAsync(IServiceProvider serviceProvider)
         {
             try
             {
@@ -39,14 +41,25 @@ namespace PartyManager.Application.Shared.CQRS
 
                 var handler = handlerObject as ICommandHandler<TCommand, TOut>;
 
-                return handler.Handle(_command);
+                return await handler.Handle(_command);
             }
             catch (Exception exception)
             {
-                // ToDo: Handle Exception and cast to type
-                //return ErrorHandler.AsHandledResponse(exception);
-                throw;
+                return GetErrorResponse(exception);
             }
+        }
+
+        private TOut GetErrorResponse(Exception exception)
+        {
+            var responseTarget = ErrorHandler.AsHandledResponse(exception);
+
+            var response = new TOut() as Response;
+
+            response.Success = false;
+            response.StatusCode = response.StatusCode;
+            response.Message = responseTarget.Message;
+
+            return (TOut)response;
         }
     }
 }
