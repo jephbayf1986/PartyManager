@@ -7,6 +7,14 @@
     PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_PartyGuest_Drink] FOREIGN KEY ([ChosenDrinkId]) REFERENCES [dbo].[Drink] ([Id]),
     CONSTRAINT [FK_PartyGuest_Party] FOREIGN KEY ([PartyId]) REFERENCES [dbo].[Party] ([Id]),
-    CONSTRAINT [FK_PartyGuest_Person] FOREIGN KEY ([PersonId]) REFERENCES [dbo].[Person] ([Id])
+    CONSTRAINT [FK_PartyGuest_Person] FOREIGN KEY ([PersonId]) REFERENCES [dbo].[Person] ([Id]),
+    CONSTRAINT [CK_PartyGuest_PartyPersonUnique] UNIQUE ([PartyId], [PersonId])
 );
 
+
+GO
+
+CREATE INDEX [IX_PartyGuest_PartyId] ON [dbo].[PartyGuest] ([PartyId])
+GO
+CREATE INDEX [IX_PartyGuest_PersonId] ON [dbo].[PartyGuest] ([PersonId])
+GO

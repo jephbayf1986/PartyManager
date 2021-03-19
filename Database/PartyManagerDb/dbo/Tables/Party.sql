@@ -3,6 +3,7 @@
     [Name]      NVARCHAR (100) NOT NULL,
     [Location]  NVARCHAR (100) NOT NULL,
     [StartTime] DATETIME       NOT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
+    PRIMARY KEY CLUSTERED ([Id] ASC), 
+    CONSTRAINT [CK_Party_NameUnique] UNIQUE ([Name])
 );
 
