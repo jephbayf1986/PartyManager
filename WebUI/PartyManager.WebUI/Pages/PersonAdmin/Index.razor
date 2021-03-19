@@ -1,0 +1,123 @@
+﻿@page "/person/{Id:int}"
+
+@using PartyManager.WebUI.Data
+@using PartyManager.Application.Main.People.Queries.Models
+@inject PersonAdminService PersonAdminService
+
+@if (person == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h1>Contact: @person.FullName</h1>
+
+    <hr />
+
+    <div class="display-field-container">
+
+        <div class="display-field">
+            <div class="field-container">
+                <div class="field-label">
+                    <h6>
+                        First Name:
+                    </h6>
+                </div>
+                <div class="field-main">
+                    @person.FirstName
+                </div>
+            </div>
+        </div>
+
+        <div class="display-field">
+            <div class="field-container">
+                <div class="field-label">
+                    <h6>
+                        Last Name:
+                    </h6>
+                </div>
+                <div class="field-main">
+                    @person.LastName
+                </div>
+            </div>
+        </div>
+
+        <div class="display-field">
+            <div class="field-container">
+                <div class="field-label">
+                    <h6>
+                        Date of Birth (Age):
+                    </h6>
+                </div>
+                <div class="field-main">
+                    @person.DateOfBirth (@person.Age)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="display-field-container">
+        <div class="display-field">
+            <div class="field-container">
+                <div class="field-label">
+                    <h6>
+                        E-Mail:
+                    </h6>
+                </div>
+                <div class="field-main">
+                    @person.Email
+                </div>
+            </div>
+        </div>
+
+        <div class="display-field">
+            <div class="field-container">
+                <div class="field-label">
+                    <h6>
+                        Phone:
+                    </h6>
+                </div>
+                <div class="field-main">
+                    @person.Phone
+                </div>
+            </div>
+        </div>
+
+        <div class="display-field">
+            <div class="field-container">
+                <div class="field-label">
+                    <h6>
+                        Favourite Drink:
+                    </h6>
+                </div>
+                <div class="field-main">
+                    @person.FavouriteDrink?.Name
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <AttendingPartyList FirstName="@person.FirstName" AttendingParties="@person.PartiesAttendingAsGuest" OnChange="@RefreshPerson" />
+}
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private PersonDetailedDto person;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await RefreshPerson();
+    }
+
+    private async Task RefreshPerson()
+    {
+        person = await PersonAdminService.GetPersonDetail(Id);
+    }
+}

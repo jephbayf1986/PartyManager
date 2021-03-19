@@ -21,6 +21,7 @@ else
             <tr>
                 <th>Name</th>
                 <th>Age</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +30,11 @@ else
                 <tr>
                     <td>@person.FullName</td>
                     <td>@person.Age</td>
+                    <td>
+                        <a href="/person/@person.Id">
+                            <span class="oi oi-arrow-circle-right" aria-hidden="true"></span>
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>

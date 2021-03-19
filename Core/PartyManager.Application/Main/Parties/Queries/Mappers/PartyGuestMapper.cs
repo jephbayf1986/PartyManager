@@ -18,6 +18,13 @@ namespace PartyManager.Application.Main.Parties.Queries.Mappers
                 PersonId = entityIn.PersonId,
                 IsVIP = entityIn.IsVIP,
                 ChosenDrinkId = entityIn.ChosenDrinkId,
+                Party = new PartyDto
+                {
+                    Id = entityIn.PartyId,
+                    Name = entityIn.Party.Name,
+                    Location = entityIn.Party.Location,
+                    StartTime = entityIn.Party.StartTime
+                },
                 Person = entityIn.Person.Map()
                                         .To<PersonDto>()
                                         .WithMapper<PersonMapper>()

@@ -15,6 +15,8 @@ namespace PartyManager.Application.Main.Parties.Queries.Models
 
         public bool IsVIP { get; set; }
 
+        public PartyDto Party { get; set; }
+
         public PersonDto Person { get; set; }
 
         public DrinkDto ChosenDrink { get; set; }

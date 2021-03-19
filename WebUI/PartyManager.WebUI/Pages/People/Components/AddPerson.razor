@@ -20,29 +20,29 @@
             <EditForm Model="@command" OnValidSubmit="@Create">
                 <div class="row">
                     <div class="form-group px-4">
-                        Name:
+                        First Name:
                         <InputText id="new-person-firstname" @bind-Value="command.FirstName" />
                     </div>
 
                     <div class="form-group px-2">
-                        Location:
+                        Last Name:
                         <InputText id="new-person-lastname" @bind-Value="command.LastName" />
                     </div>
 
                     <div class="form-group px-4">
-                        Start Date:
+                        Date of Birth:
                         <InputDate id="new-person-dob" @bind-Value="command.DateOfBirth" />
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group px-4">
-                        Name:
+                        Email:
                         <InputText id="new-person-email" @bind-Value="command.Email" />
                     </div>
 
                     <div class="form-group px-2">
-                        Location:
+                        Phone Number:
                         <InputText id="new-person-phone" @bind-Value="command.Phone" />
                     </div>
 
@@ -73,7 +73,7 @@
     }
     else
     {
-        <button class="btn btn-lg btn-dark" @onclick="@ShowCreateForm">Add a new Person</button>
+        <button class="btn btn-lg btn-dark" @onclick="@ShowCreateForm">Add a new Contact</button>
     }
 
 </div>
