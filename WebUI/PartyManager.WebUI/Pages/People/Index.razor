@@ -6,7 +6,9 @@
 
 <h1>People</h1>
 
-<p>The following people are registered to be guests</p>
+<p>You have the following contacts registered</p>
+
+<AddPerson OnChange="@RefreshPeople" />
 
 @if (people == null)
 {
@@ -37,6 +39,11 @@ else
     private IEnumerable<PersonDto> people;
 
     protected override async Task OnInitializedAsync()
+    {
+        await RefreshPeople();
+    }
+
+    private async Task RefreshPeople()
     {
         people = await PeopleService.GetPeople();
     }

@@ -1,48 +1,54 @@
 ﻿@using PartyManager.WebUI.Data
 @using PartyManager.WebUI.State
+@using PartyManager.Application.Main.People.Commands
 @using PartyManager.Application.Main.Drinks.Queries.Models
-@using PartyManager.Application.Main.Parties.Queries.Models
-@using PartyManager.Application.Main.People.Queries.Models
-@using PartyManager.Application.Main.PartyGuests.Commands
-@inject PartyAdminService PartyAdminService
-@inject DrinksService DrinksService
 @inject PeopleService PeopleService
+@inject DrinksService DrinksService
 @inject NotifierState Notifier
 
 <div>
 
     @if (allowCreate)
     {
-        <h5>Create Drink</h5>
+        <h5>Create New Contact</h5>
 
         <div class="row form-inline px-8">
 
-            Enter Guest Details:
+            Enter Contact Details:
 
             <span class="spacer" />
             <EditForm Model="@command" OnValidSubmit="@Create">
                 <div class="row">
                     <div class="form-group px-4">
-                        <InputSelect id="possible-guests" class="form-control" @bind-Value="command.PersonId">
-                            @if (drinks != null)
-                                {
-                                <option value="" selected>Select a Person</option>
-                                @foreach (var person in people)
-                                    {
-                                    <option value="@person.Id">@person.FullName</option>
-                                    }
-                                }
-                        </InputSelect>
+                        Name:
+                        <InputText id="new-person-firstname" @bind-Value="command.FirstName" />
                     </div>
 
                     <div class="form-group px-2">
-                        Make VIP?
-                        <span class="spacer"></span>
-                        <InputCheckbox id="check-vip" class="form-check" @bind-Value="command.IsVip" />
+                        Location:
+                        <InputText id="new-person-lastname" @bind-Value="command.LastName" />
                     </div>
 
                     <div class="form-group px-4">
-                        <InputSelect id="drink-options" class="form-control" @bind-Value="command.ChosenDrinkId">
+                        Start Date:
+                        <InputDate id="new-person-dob" @bind-Value="command.DateOfBirth" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group px-4">
+                        Name:
+                        <InputText id="new-person-email" @bind-Value="command.Email" />
+                    </div>
+
+                    <div class="form-group px-2">
+                        Location:
+                        <InputText id="new-person-phone" @bind-Value="command.Phone" />
+                    </div>
+
+                    <div class="form-group px-4">
+                        Favourite Drink:
+                        <InputSelect id="drink-options" class="form-control" @bind-Value="command.FavouriteDrinkId">
                             @if (drinks != null)
                                 {
                                 <option value="" selected>Select a Drink</option>
@@ -55,11 +61,11 @@
                     </div>
 
                     <div class="form-group px-1">
-                        <button type="submit" class="btn btn-light" disabled="@(!(command.PersonId > 0))"><span class="oi oi-check" aria-hidden="true"></span></button>
+                        <button type="submit" class="btn btn-light"><span class="oi oi-check" aria-hidden="true"></span></button>
                         <button class="btn btn-light" @onclick="HideCreateForm" @onclick:preventDefault><span class="oi oi-x" aria-hidden="true"></span></button>
                     </div>
                 </div>
-                
+
             </EditForm>
 
         </div>
@@ -67,41 +73,29 @@
     }
     else
     {
-        <button class="btn btn-lg btn-dark" @onclick="@ShowCreateForm">Add a new Guest</button>
+        <button class="btn btn-lg btn-dark" @onclick="@ShowCreateForm">Add a new Person</button>
     }
 
 </div>
 
 @code {
 
-    [CascadingParameter(Name = "PartyId")]
-    protected int PartyId { get; set; }
-
-    [Parameter]
-    public IEnumerable<PartyGuestDto> ExistingGuests { get; set; }
-
     [Parameter]
     public EventCallback OnChange { get; set; }
 
     private bool allowCreate { get; set; }
 
-    private CreateGuest command { get; set; }
+    private CreatePerson command { get; set; }
 
     private IEnumerable<DrinkDto> drinks { get; set; }
-
-    private IEnumerable<PersonDto> people { get; set; }
 
     protected override async Task OnParametersSetAsync()
     {
         allowCreate = false;
 
-        command = new CreateGuest() { PartyId = PartyId, IsVip = false };
+        command = new CreatePerson() { DateOfBirth = DateTime.Now.AddYears(-30) };
 
         drinks = await DrinksService.GetDrinks();
-
-        var allPeople = await PeopleService.GetPeople();
-
-        people = allPeople.Where(x => !ExistingGuests.Any(e => e.PersonId == x.Id));
     }
 
     private void ShowCreateForm()
@@ -116,7 +110,7 @@
 
     private async Task Create()
     {
-        var response = await PartyAdminService.CreateGuest(command);
+        var response = await PeopleService.CreatePerson(command);
 
         if (response.Success)
         {

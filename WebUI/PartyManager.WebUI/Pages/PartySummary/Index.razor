@@ -8,6 +8,8 @@
 
 <p>Let's Get Planning...</p>
 
+<AddParty OnChange="@RefreshParties" />
+
 @if (parties == null)
 {
     <p><em>Loading...</em></p>
@@ -29,23 +31,23 @@ else
         <tbody>
             @foreach (var party in parties)
             {
-            <tr>
-                <td>@party.Name</td>
-                <td>@party.Location</td>
-                <td>@party.StartTime</td>
-                <td>@party.NumberOfGuests <span class="oi oi-person" aria-hidden="true"></span></td>
-                <td>
-                    @party.NumberOfVIPs
-                    <span class="oi oi-person" aria-hidden="true"></span>
-                    <span class="oi oi-plus" aria-hidden="true"></span>
-                </td>
-                <td>@party.NumberOfDrinkChoicesOutstanding <span class="oi oi-beaker" aria-hidden="true"></span></td>
-                <td>
-                    <a href="/party/@party.Id">
-                        <span class="oi oi-arrow-circle-right" aria-hidden="true"></span>
-                    </a>
-                </td>
-            </tr>
+                <tr>
+                    <td>@party.Name</td>
+                    <td>@party.Location</td>
+                    <td>@party.StartTime</td>
+                    <td>@party.NumberOfGuests <span class="oi oi-person" aria-hidden="true"></span></td>
+                    <td>
+                        @party.NumberOfVIPs
+                        <span class="oi oi-person" aria-hidden="true"></span>
+                        <span class="oi oi-plus" aria-hidden="true"></span>
+                    </td>
+                    <td>@party.NumberOfDrinkChoicesOutstanding <span class="oi oi-beaker" aria-hidden="true"></span></td>
+                    <td>
+                        <a href="/party/@party.Id">
+                            <span class="oi oi-arrow-circle-right" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -55,6 +57,11 @@ else
     private IEnumerable<PartySummaryDto> parties;
 
     protected override async Task OnInitializedAsync()
+    {
+        await RefreshParties();
+    }
+
+    private async Task RefreshParties()
     {
         parties = await PartySummaryService.GetPartySummaries();
     }

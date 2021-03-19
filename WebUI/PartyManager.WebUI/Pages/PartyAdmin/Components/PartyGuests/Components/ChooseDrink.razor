@@ -10,25 +10,30 @@
 
     <div class="popover-header">
         Choose Drink for @GuestName
-        <button class="popover-close" @onclick="@(async () => await OnClose.InvokeAsync())"><span class="oi oi-x" aria-hidden="true"></span></button>
+        <button class="popover-close btn btn-sm btn-dark" @onclick="@(async () => await OnClose.InvokeAsync())"><span class="oi oi-x" aria-hidden="true"></span></button>
     </div>
 
     <div class="popover-body">
         <EditForm Model="@command" OnValidSubmit="@SetChosenDrink">
-            <InputSelect id="drink-choices" @bind-Value="command.ChosenDrinkId">
-                @if (drinks != null)
-                {
-                    if (CurrentId == null)
+            <div class="form-inline">
+
+                <InputSelect id="drink-choices" class="form-control" @bind-Value="command.ChosenDrinkId">
+                    @if (drinks != null)
                     {
-                        <option value="">Select An Option</option>
+                        if (CurrentId == null)
+                        {
+                            <option value="">Select An Option</option>
+                        }
+                        @foreach (var drink in drinks)
+                        {
+                            <option value="@drink.Id">@drink.Name</option>
+                        }
                     }
-                    @foreach (var drink in drinks)
-                    {
-                        <option value="@drink.Id">@drink.Name</option>
-                    }
-                }
-            </InputSelect>
-            <button type="submit" disabled="@(!(command.ChosenDrinkId > 0))"><span class="oi oi-check" aria-hidden="true"></span></button>
+                </InputSelect>
+
+                <button type="submit" class="btn btn-light" disabled="@(!(command.ChosenDrinkId > 0))"><span class="oi oi-check" aria-hidden="true"></span></button>
+
+            </div>
         </EditForm>
     </div>
 

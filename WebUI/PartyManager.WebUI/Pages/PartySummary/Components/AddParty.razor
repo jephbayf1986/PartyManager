@@ -1,0 +1,91 @@
+﻿@using PartyManager.WebUI.Data
+@using PartyManager.WebUI.State
+@using PartyManager.Application.Main.Parties.Commands
+@inject PartySummaryService PartySummaryService
+@inject NotifierState Notifier
+
+<div>
+
+    @if (allowCreate)
+    {
+        <h5>Create Party</h5>
+
+        <div class="row form-inline px-8">
+
+            Enter Shin Dig-tails:
+            <span class="spacer" />
+            <EditForm Model="@command" OnValidSubmit="@Create">
+                <div class="row">
+                    <div class="form-group px-4">
+                        Name: 
+                        <InputText id="new-party-name" @bind-Value="command.Name" />
+                    </div>
+
+                    <div class="form-group px-2">
+                        Location: 
+                        <InputText id="new-party-location" @bind-Value="command.Location" />
+                    </div>
+
+                    <div class="form-group px-4">
+                        Start Date:
+                        <InputDate id="new-party-starttime" @bind-Value="command.StartTime" />
+                    </div>
+
+                    <div class="form-group px-1">
+                        <button type="submit" class="btn btn-light"><span class="oi oi-check" aria-hidden="true"></span></button>
+                        <button class="btn btn-light" @onclick="HideCreateForm" @onclick:preventDefault><span class="oi oi-x" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+
+            </EditForm>
+
+        </div>
+
+    }
+    else
+    {
+        <button class="btn btn-lg btn-dark" @onclick="@ShowCreateForm">Add a new Shin-Dig!</button>
+    }
+
+</div>
+
+@code {
+
+        [Parameter]
+        public EventCallback OnChange { get; set; }
+
+    private bool allowCreate { get; set; }
+
+    private CreateParty command { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        allowCreate = false;
+
+        command = new CreateParty() { StartTime = DateTime.Now };
+    }
+
+    private void ShowCreateForm()
+    {
+        allowCreate = true;
+    }
+
+    private void HideCreateForm()
+    {
+        allowCreate = false;
+    }
+
+    private async Task Create()
+    {
+        var response = await PartySummaryService.CreateParty(command);
+
+        if (response.Success)
+        {
+            allowCreate = false;
+
+            await OnChange.InvokeAsync();
+        }
+
+        Notifier.Notify(response);
+    }
+}
