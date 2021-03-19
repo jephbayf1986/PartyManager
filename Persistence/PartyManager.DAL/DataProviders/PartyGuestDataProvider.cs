@@ -14,10 +14,12 @@ namespace PartyManager.DAL.DataProviders
     public class PartyGuestDataProvider : IPartyGuestDataProvider
     {
         private readonly IDbEntity<PartyGuestEntity> db;
-        
+        private readonly IDbEntity<PartyGuestByPersonEntity> db_ByPerson;
+
         public PartyGuestDataProvider(IDbCore dbCore)
         {
             db = new DbEntity<PartyGuestEntity>(dbCore);
+            db_ByPerson = new DbEntity<PartyGuestByPersonEntity>(dbCore);
         }
 
         public Task<IEnumerable<PartyGuest>> GetPartyGuests(int partyId)
@@ -28,6 +30,16 @@ namespace PartyManager.DAL.DataProviders
             var mapper = PartyGuestMapper.Mapper;
 
             return db.GetList(param, mapper);
+        }
+
+        public Task<IEnumerable<PartyGuest>> GetPartyGuestByPersonId(int personId)
+        {
+            var param = new ParamBuilder()
+                                .WithPersonId(personId);
+
+            var mapper = PartyGuestMapper.Mapper;
+
+            return db_ByPerson.GetList(param, mapper);
         }
 
         public async Task<int> InsertPartyGuest(InsertPartyGuestRequest request)

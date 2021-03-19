@@ -1,0 +1,129 @@
+﻿@using PartyManager.WebUI.Data
+@using PartyManager.WebUI.State
+@using PartyManager.Application.Main.Drinks.Queries.Models
+@using PartyManager.Application.Main.Parties.Queries.Models
+@using PartyManager.Application.Main.People.Queries.Models
+@using PartyManager.Application.Main.PartyGuests.Commands
+@inject PartyAdminService PartyAdminService
+@inject DrinksService DrinksService
+@inject PeopleService PeopleService
+@inject NotifierState Notifier
+
+<div>
+
+    @if (allowCreate)
+    {
+        <h5>Create Drink</h5>
+
+        <div class="row form-inline px-8">
+
+            Enter Guest Details:
+            <span class="spacer" />
+            <EditForm Model="@command" OnValidSubmit="@Create">
+                <div class="row">
+                    <div class="form-group px-4">
+                        <InputSelect id="possible-guests" class="form-control" @bind-Value="command.PersonId">
+                            @if (drinks != null)
+                                {
+                                <option value="" selected>Select a Person</option>
+                                @foreach (var person in people)
+                                    {
+                                    <option value="@person.Id">@person.FullName</option>
+                                    }
+                                }
+                        </InputSelect>
+                    </div>
+
+                    <div class="form-group px-2">
+                        Make VIP?
+                        <span class="spacer"></span>
+                        <InputCheckbox id="check-vip" class="form-check" @bind-Value="command.IsVip" />
+                    </div>
+
+                    <div class="form-group px-4">
+                        <InputSelect id="drink-options" class="form-control" @bind-Value="command.ChosenDrinkId">
+                            @if (drinks != null)
+                                {
+                                <option value="" selected>Select a Drink</option>
+                                @foreach (var drink in drinks)
+                                    {
+                                    <option value="@drink.Id">@drink.Name</option>
+                                    }
+                                }
+                        </InputSelect>
+                    </div>
+
+                    <div class="form-group px-1">
+                        <button type="submit" class="btn btn-light" disabled="@(!(command.PersonId > 0))"><span class="oi oi-check" aria-hidden="true"></span></button>
+                        <button class="btn btn-light" @onclick="HideCreateForm" @onclick:preventDefault><span class="oi oi-x" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+                
+            </EditForm>
+
+        </div>
+
+    }
+    else
+    {
+        <button class="btn btn-lg btn-dark" @onclick="@ShowCreateForm">Add a new Guest</button>
+    }
+
+</div>
+
+@code {
+
+    [CascadingParameter(Name = "PartyId")]
+    protected int PartyId { get; set; }
+
+    [Parameter]
+    public IEnumerable<PartyGuestDto> ExistingGuests { get; set; }
+
+    [Parameter]
+    public EventCallback OnChange { get; set; }
+
+    private bool allowCreate { get; set; }
+
+    private CreateGuest command { get; set; }
+
+    private IEnumerable<DrinkDto> drinks { get; set; }
+
+    private IEnumerable<PersonDto> people { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        allowCreate = false;
+
+        command = new CreateGuest() { PartyId = PartyId, IsVip = false };
+
+        drinks = await DrinksService.GetDrinks();
+
+        var allPeople = await PeopleService.GetPeople();
+
+        people = allPeople.Where(x => !ExistingGuests.Any(e => e.PersonId == x.Id));
+    }
+
+    private void ShowCreateForm()
+    {
+        allowCreate = true;
+    }
+
+    private void HideCreateForm()
+    {
+        allowCreate = false;
+    }
+
+    private async Task Create()
+    {
+        var response = await PartyAdminService.CreateGuest(command);
+
+        if (response.Success)
+        {
+            allowCreate = false;
+
+            await OnChange.InvokeAsync();
+        }
+
+        Notifier.Notify(response);
+    }
+}

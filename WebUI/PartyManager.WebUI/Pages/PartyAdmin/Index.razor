@@ -16,19 +16,21 @@ else
 
     <div class="display-field-container">
         <div class="display-field">
-            <PartyName Id="@party.Id" Name="@party.Name" />
+            <PartyName Id="@party.Id" Name="@party.Name" OnChange="@RefreshParty" />
         </div>
         <div class="display-field">
-            <PartyLocation Id="@party.Id" Location="@party.Location" />
+            <PartyLocation Id="@party.Id" Location="@party.Location" OnChange="@RefreshParty" />
         </div>
         <div class="display-field">
-            <PartyDate Id="@party.Id" StartTime="@party.StartTime" />
+            <PartyDate Id="@party.Id" StartTime="@party.StartTime" OnChange="@RefreshParty" />
         </div>
     </div>
 
     <hr />
 
-    <PartyGuestList PartyGuests="@party.PartyGuests" />
+    <CascadingValue Value="@Id" Name="PartyId">
+        <PartyGuestList PartyGuests="@party.PartyGuests" OnChange="@RefreshParty" />
+    </CascadingValue>
 }
 
 @code {
@@ -39,6 +41,11 @@ else
     private PartyDto party;
 
     protected override async Task OnParametersSetAsync()
+    {
+        party = await PartyAdminService.GetParty(Id);
+    }
+
+    private async Task RefreshParty()
     {
         party = await PartyAdminService.GetParty(Id);
     }

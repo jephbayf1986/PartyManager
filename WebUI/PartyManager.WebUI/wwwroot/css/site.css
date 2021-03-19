@@ -69,6 +69,28 @@ a, .btn-link {
         top: 0.5rem;
     }
 
+.notification {
+    position: absolute;
+    display: none;
+    top: 3.5rem;
+    right: 0px;
+    padding: 1rem;
+    min-width: 240px;
+    max-width: 100%;
+}
+
+    .notification.active {
+        display: block;
+    }
+
+    .notification.success {
+        background-color: forestgreen;
+    }
+
+    .notification.fail {
+        background-color: mediumvioletred;
+    }
+
 .display-field-container {
     width: 100%;
     display: flex;
@@ -99,3 +121,38 @@ a, .btn-link {
         flex-direction: column;
         justify-content: center;
     }
+
+.popover-form {
+    min-width: 400px;
+    min-height: 100px;
+    position: absolute;
+    left: -webkit-calc(50% - 150px);
+    left: -moz-calc(50% - 150px);
+    left: calc(50% - 150px);
+    top: -webkit-calc(50% - 75px);
+    top: -moz-calc(50% - 75px);
+    top: calc(50% - 75px);
+    background-color: #392356;
+}
+
+    .popover-form .popover-header {
+        background-color: #23345d;
+    }
+
+    .popover-form .popover-header .popover-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+span.spacer {
+    width: 5px;
+}
+
+div.row.form-inline {
+    padding: 10px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

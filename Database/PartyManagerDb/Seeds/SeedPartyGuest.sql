@@ -11,17 +11,17 @@ INSERT INTO #PartyGuest
 VALUES
      (1, 1, 1, NULL, 1)
     ,(2, 1, 2, NULL, 0)
-    ,(3, 1, 3, NULL, 0)
+    ,(3, 1, 3, 5, 0)
     ,(4, 1, 4, NULL, 1)
     ,(5, 1, 5, NULL, 1)
     ,(6, 1, 6, NULL, 0)
-    ,(7, 1, 7, NULL, 0)
+    ,(7, 1, 7, 3, 0)
     ,(8, 1, 8, NULL, 0)
     ,(9, 2, 2, NULL, 0)
     ,(10, 2, 4, NULL, 1)
     ,(11, 2, 8, NULL, 0)
     ,(12, 3, 5, NULL, 1)
-    ,(13, 3, 7, NULL, 0)
+    ,(13, 3, 7, 3, 0)
 
 SET IDENTITY_INSERT PartyGuest ON;
 GO

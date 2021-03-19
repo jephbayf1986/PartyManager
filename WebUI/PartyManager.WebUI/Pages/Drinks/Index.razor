@@ -8,6 +8,8 @@
 
 <p>The following Drinks are available:</p>
 
+<NewDrinkForm OnChange="@RefreshDrinks"/>
+
 @if (drinks == null)
 {
     <p><em>Loading...</em></p>
@@ -35,6 +37,11 @@ else
     private IEnumerable<DrinkDto> drinks;
 
     protected override async Task OnInitializedAsync()
+    {
+        await RefreshDrinks();
+    }
+
+    private async Task RefreshDrinks()
     {
         drinks = await DrinksService.GetDrinks();
     }

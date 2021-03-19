@@ -1,0 +1,120 @@
+﻿@using PartyManager.WebUI.Data
+@using PartyManager.WebUI.State
+@using PartyManager.Application.Main.Parties.Queries.Models
+@using PartyManager.Application.Main.PartyGuests.Commands;
+@inject PartyAdminService PartyAdminService
+@inject NotifierState Notifier
+
+<h3>Guest List</h3>
+
+<p>The guests are currently attending:</p>
+
+<AddGuest ExistingGuests="@PartyGuests" OnChange="@OnChange" />
+
+@if (PartyGuests == null)
+{
+    <p><em>No-one currently on the guest list!</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Age</th>
+                <th><span class="oi oi-beaker" aria-hidden="true"></span> Drink Choice</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var guest in PartyGuests)
+            {
+                <tr>
+                    <td>
+                        <div>
+                            <span class="oi oi-person" aria-hidden="true"></span>
+                            @if (guest.IsVIP)
+                            {
+                                <span class="oi oi-plus" aria-hidden="true"></span>
+                            }
+                        </div>
+                    </td>
+                    <td>@guest.Person.FullName</td>
+                    <td>@guest.Person.Age</td>
+                    <td>
+                        @if (guest.ChosenDrink != null)
+                        {
+                            @guest.ChosenDrink.Name
+                            <span class="spacer" />
+                            <a href="" @onclick="@(() => SetChooseDrink(guest.Id, guest.Person.FullName, guest.ChosenDrinkId))" @onclick:preventDefault>
+                                <span class="oi oi-pencil" aria-hidden="true"></span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="" @onclick="@(() => SetChooseDrink(guest.Id, guest.Person.FullName, guest.ChosenDrinkId))" @onclick:preventDefault>
+                                Choose Now
+                            </a>
+                        }
+                    </td>
+                    <td>
+                        <a href="" @onclick="@(async () => await RemoveGuest(guest.Id))" @onclick:preventDefault>
+                            <span class="oi oi-trash" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (ChooseDrinkOpen)
+{
+    <ChooseDrink GuestId="@ChooseDrinkGuestId"
+                 GuestName="@ChooseDrinkGuestName"
+                 CurrentId="@ChooseDrinkCurrentId"
+                 OnChange="@OnChange"
+                 OnClose="@CloseChooseDrink" />
+}
+
+@code {
+
+    [Parameter]
+    public IEnumerable<PartyGuestDto> PartyGuests { get; set; }
+
+    [Parameter]
+    public EventCallback OnChange { get; set; }
+
+    private bool ChooseDrinkOpen { get; set; }
+    private int ChooseDrinkGuestId { get; set; }
+    private string ChooseDrinkGuestName { get; set; }
+    private int? ChooseDrinkCurrentId { get; set; }
+
+    private void SetChooseDrink(int guestId, string guestName, int? currentId)
+    {
+        ChooseDrinkGuestId = guestId;
+        ChooseDrinkGuestName = guestName;
+        ChooseDrinkCurrentId = currentId;
+        ChooseDrinkOpen = true;
+    }
+
+    private void CloseChooseDrink()
+    {
+        ChooseDrinkGuestId = default;
+        ChooseDrinkCurrentId = null;
+        ChooseDrinkOpen = false;
+    }
+
+    private async Task RemoveGuest(int id)
+    {
+        var response = await PartyAdminService.RemoveGuest(new RemoveGuest { Id = id });
+
+        if (response.Success)
+        {
+            await OnChange.InvokeAsync();
+        }
+
+        Notifier.Notify(response);
+    }
+}

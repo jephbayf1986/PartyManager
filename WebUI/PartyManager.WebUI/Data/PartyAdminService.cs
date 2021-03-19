@@ -3,6 +3,7 @@ using PartyManager.Application.Main.Parties.Commands;
 using PartyManager.Application.Main.Parties.Queries;
 using PartyManager.Application.Main.Parties.Queries.Models;
 using PartyManager.Application.Main.PartyGuests.Commands;
+using PartyManager.Application.Main.People.Commands;
 using PartyManager.Application.Shared.Responding;
 using System.Threading.Tasks;
 
@@ -43,6 +44,22 @@ namespace PartyManager.WebUI.Data
         }
 
         public Task<Response> RemoveGuest(RemoveGuest command)
+        {
+            return _appLayer.Execute(command);
+        }
+
+        public Task<Response> UpdateChosenDrink(UpdateChosenDrink command)
+        {
+            return _appLayer.Execute(command);
+        }
+
+        // Give User choice to update along with above
+        public Task<Response> UpdateFavouriteDrink(UpdateFavouriteDrink command)
+        {
+            return _appLayer.Execute(command);
+        }
+
+        public Task<Response> UpdateVipStatus(UpdateVipStatus command)
         {
             return _appLayer.Execute(command);
         }

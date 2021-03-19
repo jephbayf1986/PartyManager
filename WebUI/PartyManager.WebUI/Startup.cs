@@ -8,6 +8,7 @@ using PartyManager.Application.Main;
 using PartyManager.Application.Shared.CQRS;
 using PartyManager.DAL;
 using PartyManager.WebUI.Data;
+using PartyManager.WebUI.State;
 
 namespace PartyManager.WebUI
 {
@@ -34,6 +35,8 @@ namespace PartyManager.WebUI
             services.AddSingleton<PeopleService>();
             services.AddSingleton<PersonAdminService>();
             services.AddSingleton<DrinksService>();
+
+            services.AddScoped<NotifierState>();
 
             services.AddMvc()
                     .AddRazorRuntimeCompilation();

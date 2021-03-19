@@ -9,4 +9,9 @@
     <ProjectReference Include="..\..\Persistence\PartyManager.DAL\PartyManager.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\PersonAdmin\" />
+    <Folder Include="Pages\PartySummary\Components\" />
+  </ItemGroup>
+
 </Project>

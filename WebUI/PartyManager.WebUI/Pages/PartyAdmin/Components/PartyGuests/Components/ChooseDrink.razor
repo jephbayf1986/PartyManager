@@ -1,0 +1,82 @@
+﻿@using PartyManager.WebUI.Data
+@using PartyManager.WebUI.State
+@using PartyManager.Application.Main.Drinks.Queries.Models;
+@using PartyManager.Application.Main.PartyGuests.Commands;
+@inject PartyAdminService PartyAdminService
+@inject DrinksService DrinksService
+@inject NotifierState Notifier
+
+<div class="popover popover-form">
+
+    <div class="popover-header">
+        Choose Drink for @GuestName
+        <button class="popover-close" @onclick="@(async () => await OnClose.InvokeAsync())"><span class="oi oi-x" aria-hidden="true"></span></button>
+    </div>
+
+    <div class="popover-body">
+        <EditForm Model="@command" OnValidSubmit="@SetChosenDrink">
+            <InputSelect id="drink-choices" @bind-Value="command.ChosenDrinkId">
+                @if (drinks != null)
+                {
+                    if (CurrentId == null)
+                    {
+                        <option value="">Select An Option</option>
+                    }
+                    @foreach (var drink in drinks)
+                    {
+                        <option value="@drink.Id">@drink.Name</option>
+                    }
+                }
+            </InputSelect>
+            <button type="submit" disabled="@(!(command.ChosenDrinkId > 0))"><span class="oi oi-check" aria-hidden="true"></span></button>
+        </EditForm>
+    </div>
+
+</div>
+
+@code {
+
+    [Parameter]
+    public int GuestId { get; set; }
+
+    [Parameter]
+    public string GuestName { get; set; }
+
+    [Parameter]
+    public int? CurrentId { get; set; }
+
+    [Parameter]
+    public EventCallback OnChange { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    private UpdateChosenDrink command { get; set; }
+
+    private IEnumerable<DrinkDto> drinks { get; set; }
+    
+    protected override async Task OnParametersSetAsync()
+    {
+        command = new UpdateChosenDrink
+        {
+            Id = GuestId,
+            ChosenDrinkId = CurrentId ?? default(int)
+        };
+
+        drinks = await DrinksService.GetDrinks();
+    }
+
+    private async Task SetChosenDrink()
+    {
+        var response = await PartyAdminService.UpdateChosenDrink(command);
+
+        if (response.Success)
+        {
+            await OnChange.InvokeAsync();
+            await OnClose.InvokeAsync();
+        }
+
+        Notifier.Notify(response);
+    }
+
+}

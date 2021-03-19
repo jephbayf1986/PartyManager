@@ -1,0 +1,43 @@
+﻿@using PartyManager.WebUI.State
+@inject NotifierState NotifierState
+
+<div class="notification @NotificationActiveClass() @NotificationTypeClass()">
+    @Message()
+</div>
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        NotifierState.OnChange += StateHasChanged;
+    }
+
+    public string Message()
+    {
+        return NotifierState.Message;
+    }
+
+    public string NotificationActiveClass()
+    {
+        return NotifierState.Display ? "active" : "";
+    }
+
+    public string NotificationTypeClass()
+    {
+        return NotifierState.Success ? "success" : "fail";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (NotifierState.Display)
+        {
+            await Task.Delay(5000);
+            NotifierState.NotifyClose();
+        }
+    }
+
+    public void Dispose()
+    {
+        NotifierState.OnChange -= StateHasChanged;
+    }
+}

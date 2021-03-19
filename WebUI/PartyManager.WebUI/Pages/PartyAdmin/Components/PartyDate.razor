@@ -1,7 +1,9 @@
 ﻿@using PartyManager.WebUI.Data
+@using PartyManager.WebUI.State
 @using PartyManager.Application.Main.Parties.Commands
 @using PartyManager.Application.Shared.Responding
 @inject PartyAdminService PartyAdminService
+@inject NotifierState Notifier
 
 <div class="display-edit-container">
 
@@ -43,7 +45,10 @@
 
     [Parameter]
     public DateTime StartTime { get; set; }
-    
+
+    [Parameter]
+    public EventCallback OnChange { get; set; }
+
     private bool Editing;
     private UpdateStartTime command { get; set; }
 
@@ -77,15 +82,17 @@
         command.StartTime = StartTime;
     }
 
-    private async Task<Response> Update()
+    private async Task Update()
     {
         var response = await PartyAdminService.UpdateStartTime(command);
 
         if (response.Success)
         {
             Editing = false;
+
+            await OnChange.InvokeAsync();
         }
 
-        return response;
+        Notifier.Notify(response);
     }
 }

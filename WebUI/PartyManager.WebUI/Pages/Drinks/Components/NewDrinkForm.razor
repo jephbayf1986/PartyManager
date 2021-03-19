@@ -1,0 +1,69 @@
+﻿@using PartyManager.WebUI.Data
+@using PartyManager.WebUI.State
+@using PartyManager.Application.Main.Drinks.Commands
+@inject DrinksService DrinksService
+@inject NotifierState Notifier
+
+<div>
+
+    @if (allowCreate)
+    {
+        <h5>Create Drink</h5>
+
+        <div class="row form-inline px-4">
+            Enter Name: 
+            <span class="spacer" />
+            <EditForm Model="@command" OnValidSubmit="@Create">
+                <InputText id="drink-name" class="form-control" @bind-Value="command.Name" />
+                <button class="btn btn-light" type="submit"><span class="oi oi-check" aria-hidden="true"></span></button>
+                <button class="btn btn-light" @onclick="HideCreateForm" @onclick:preventDefault><span class="oi oi-x" aria-hidden="true"></span></button>
+            </EditForm>
+        </div>
+    }
+    else
+    {
+        <button class="btn btn-lg btn-dark" @onclick="@ShowCreateForm">Create New Drink</button>
+    }
+
+</div>
+
+@code {
+
+    [Parameter]
+    public EventCallback OnChange { get; set; }
+
+    private bool allowCreate { get; set; }
+
+    private CreateDrink command { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        allowCreate = false;
+
+        command = new CreateDrink();
+    }
+
+    private void ShowCreateForm()
+    {
+        allowCreate = true;
+    }
+
+    private void HideCreateForm()
+    {
+        allowCreate = false;
+    }
+
+    private async Task Create()
+    {
+        var response = await DrinksService.CreateDrink(command);
+
+        if (response.Success)
+        {
+            allowCreate = false;
+
+            await OnChange.InvokeAsync();
+        }
+
+        Notifier.Notify(response);
+    }
+}

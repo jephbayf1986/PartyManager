@@ -142,6 +142,7 @@
     <Build Include="dbo\Stored Procedures\spUpdatePartyGuest.sql" />
     <Build Include="dbo\Stored Procedures\spUpdatePerson.sql" />
     <Build Include="dbo\Stored Procedures\spGetPartyDetail.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPartiesByPerson.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Seeds\SeedParty.sql" />

@@ -9,6 +9,8 @@ namespace PartyManager.Application.Shared.DataAccess.Interfaces
     {
         Task<IEnumerable<PartyGuest>> GetPartyGuests(int partyId);
 
+        Task<IEnumerable<PartyGuest>> GetPartyGuestByPersonId(int personId);
+
         Task<int> InsertPartyGuest(InsertPartyGuestRequest request);
 
         Task UpdatePartyGuest(UpdatePartyGuestRequest request);
