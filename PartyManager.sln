@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartyManager.DAL", "Persistence\PartyManager.DAL\PartyManager.DAL.csproj", "{08B3FEE2-ABB5-4FF8-9F3A-F3012238398B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{54E18ACC-6D70-4CD8-9D38-5EBDED3CE1B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyManager.Testing", "PartyManager.Testing\PartyManager.Testing.csproj", "{BA050C7C-A87B-41DA-BF93-1B36BFA063A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,10 @@ Global
 		{08B3FEE2-ABB5-4FF8-9F3A-F3012238398B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08B3FEE2-ABB5-4FF8-9F3A-F3012238398B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08B3FEE2-ABB5-4FF8-9F3A-F3012238398B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA050C7C-A87B-41DA-BF93-1B36BFA063A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA050C7C-A87B-41DA-BF93-1B36BFA063A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA050C7C-A87B-41DA-BF93-1B36BFA063A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA050C7C-A87B-41DA-BF93-1B36BFA063A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +56,7 @@ Global
 		{98BA2C23-B9BD-4824-9C6C-4B2C09B457F7} = {4157B026-593B-4105-A167-0C81EA7382AE}
 		{E518F2C4-5FDE-49F5-AFD0-2D774A6B438B} = {40C0A919-0B26-4CAA-9299-DF096864FEBD}
 		{08B3FEE2-ABB5-4FF8-9F3A-F3012238398B} = {1A998267-ACE4-47C7-8F14-B41194CB3783}
+		{BA050C7C-A87B-41DA-BF93-1B36BFA063A1} = {54E18ACC-6D70-4CD8-9D38-5EBDED3CE1B6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED355D58-2957-4DBC-8C7C-A644E236BC85}

@@ -3,7 +3,7 @@ using PartyManager.Application.Shared.Validation.ValidationTests;
 
 namespace PartyManager.Application.Main.Drinks.Commands.Validators
 {
-    public class InsertDrinkValidator : IValidator<CreateDrink>
+    public class CreateDrinkValidator : IValidator<CreateDrink>
     {
         public ValidationResult Validate(CreateDrink command)
         {

@@ -3,7 +3,7 @@ using System;
 
 namespace PartyManager.Application.Shared.Exceptions
 {
-    internal class ValidationException : Exception
+    public class ValidationException : Exception
     {
         public readonly ValidationResult ValidationResult;
 
