@@ -13,9 +13,15 @@ namespace PartyManager.Testing.TestHelpers
 
         public static string StringOfLength(int length)
         {
-            char[] chars = new char[NumberBetween(0,255)];
+            const string allowedChars = "qwertuiop";
+            char[] chars = new char[length];
 
-            return new string(chars, 0, length);
+            for (int i = 0; i < length; i++)
+            {
+                chars[i] = allowedChars[NumberBetween(0, allowedChars.Length)];
+            }
+
+            return new string(chars);
         }
     }
 }
