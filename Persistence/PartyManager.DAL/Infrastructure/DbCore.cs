@@ -26,14 +26,15 @@ namespace PartyManager.DAL.Infrastructure
 
                 var result = new List<T>();
 
-                var reader = await command.ExecuteReaderAsync();
-
-                while (reader.Read())
+                using (var reader = await command.ExecuteReaderAsync())
                 {
-                    result.Add(mapper(reader));
-                }
+                    while (reader.Read())
+                    {
+                        result.Add(mapper(reader));
+                    }
 
-                return result;
+                    return result;
+                }
             }
         }
 
@@ -46,14 +47,15 @@ namespace PartyManager.DAL.Infrastructure
 
                 T result = default(T);
 
-                var reader = await command.ExecuteReaderAsync();
-
-                if (reader.Read())
+                using (var reader = await command.ExecuteReaderAsync())
                 {
-                    result = mapper(reader);
-                }
+                    if (reader.Read())
+                    {
+                        result = mapper(reader);
+                    }
 
-                return result;
+                    return result;
+                }
             }
         }
 
